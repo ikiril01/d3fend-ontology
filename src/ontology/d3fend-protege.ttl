@@ -3810,19 +3810,6 @@ This admission controller
             owl:someValuesFrom :ContainerImage ] ;
     :definition "A software layer between d3f:ContainerProcess and d3f:Kernel which often mediates the invocation of d3f:SystemCall" .
 
-:ContentAugmentation a owl:Class ;
-    rdfs:label "Content Augmentation | ?sec" ;
-    rdfs:subClassOf :ContentTransformation ;
-    rdfs:comment "Note abstraction of two CDR process steps outlined in RTB v5.0" ;
-    :definition "The process of adding additional information to the content to support tracking of content." ;
-    :synonym "Content Tracking Augmentation" .
-
-:ContentDenormalization a owl:Class ;
-    rdfs:label "Content Denormalization ?sec" ;
-    rdfs:subClassOf :FormatConversion ;
-    rdfs:comment "\"Denormalization, the conversion of normalized data back to its original form, is usually not security relevant since the content would have been filtered.\"" ;
-    :definition "Content denormalization is the format converstion technique whereby the normalized form of data used in content filtering processes is put back to its original form." .
-
 :ContentFiltering a :DefensiveTechnique,
         owl:Class,
         owl:NamedIndividual ;
@@ -3867,12 +3854,6 @@ content into a presentation format.
 * A Microsoft PowerPoint® file can be flattenedinto a series of bitmap images (e.g., PNG or JPEG).""" ;
     :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 .
 
-:ContentMetadataTagging a owl:Class ;
-    rdfs:label "Content Metadata Tagging" ;
-    rdfs:subClassOf :ContentAugmentation ;
-    rdfs:comment "A CDR process step outlined in RTB v5.0." ;
-    :definition "The process of adding metadata to content to support tracking of content." .
-
 :ContentNormalization a :FormatConversion,
         owl:Class,
         owl:NamedIndividual ;
@@ -3905,19 +3886,6 @@ An external system could convert a proprietary bitmap image format on a Microsof
     :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
     :synonym "Content Canonicalization" .
 
-:ContentReconstruction a owl:Class ;
-    rdfs:label "Content Reconstruction |" ;
-    rdfs:subClassOf :ContentTransformation ;
-    rdfs:comment "A CDR process step outlined in RTB v5.0." ;
-    :definition "The process of rebuilding a file or data from components resulting from a content filtering pipeline." .
-
-:ContentRedaction a owl:Class ;
-    rdfs:label "Content Redaction +" ;
-    rdfs:subClassOf :ContentSubstitution ;
-    rdfs:comment "Example: Replacing the first five numbers of a social security number with the “X” character." ;
-    :definition "The process of removing sensitive or confidential information from a document by deleting or masking data." ;
-    :synonym "Data Masking" .
-
 :ContentSanitization a :ContentFiltering,
         owl:Class,
         owl:NamedIndividual ;
@@ -3944,10 +3912,6 @@ Sanitization, sometimes called “Writing Out Known Good”, removes anything th
 * Hiding explicit structuring or layering present in a media format""" ;
     :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
     :synonym "Content Cleansing" .
-
-:ContentStructureRandomization a owl:Class ;
-    rdfs:label "Content Structure Randomization" ;
-    rdfs:subClassOf :ContentSanitization .
 
 :ContentSubstitution a :ContentTransformation,
         owl:Class,
@@ -4027,19 +3991,6 @@ Content transformation is a content filtering technique wherein specific data wi
   * A PNG image could be transformed to a JPEG image
   * HTTPS POST could be transformed to a Secure File Transfer Protocol (SFTP) PUT.""" ;
     :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 .
-
-:ContentTruncation a owl:Class ;
-    rdfs:label "Content Generalization + ?" ;
-    rdfs:subClassOf :ContentSubstitution ;
-    rdfs:comment "Example include: reducing the precision of the latitude/longitude value for a coordinate, reducing the precision of time from timestamp in seconds to just the year, or substituting just a country instead of city and state as a birthplace." ;
-    :synonym "Data Generalization",
-        "The process of removing sensitive or confidential information from a document by reducing the precision of geotemporal coordinates or reducting the specificity of identification of people, places, or things." .
-
-:ContentWatermarking a owl:Class ;
-    rdfs:label "Content Watermarking" ;
-    rdfs:subClassOf :ContentAugmentation ;
-    rdfs:comment "A CDR process step outlined in RTB v5.0." ;
-    :definition "The process of embedding a digital watermark into a file to support tracking of content." .
 
 :Contribution a owl:Class ;
     rdfs:subClassOf :D3FENDThing,
