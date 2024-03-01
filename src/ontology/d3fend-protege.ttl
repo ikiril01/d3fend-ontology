@@ -3812,25 +3812,60 @@ This admission controller
 
 :ContentAugmentation a owl:Class ;
     rdfs:label "Content Augmentation | ?sec" ;
-    rdfs:subClassOf :ContentModification ;
+    rdfs:subClassOf :ContentTransformation ;
     rdfs:comment "Note abstraction of two CDR process steps outlined in RTB v5.0" ;
     :definition "The process of adding additional information to the content to support tracking of content." ;
     :synonym "Content Tracking Augmentation" .
 
 :ContentDenormalization a owl:Class ;
-    rdfs:label "Content Denormalization ?" ;
-    rdfs:subClassOf :ContentTransliteration .
+    rdfs:label "Content Denormalization ?sec" ;
+    rdfs:subClassOf :FormatConversion ;
+    rdfs:comment "\"Denormalization, the conversion of normalized data back to its original form, is usually not security relevant since the content would have been filtered.\"" ;
+    :definition "Content denormalization is the format converstion technique whereby the normalized form of data used in content filtering processes is put back to its original form." .
 
-:ContentFiltering a owl:Class ;
+:ContentFiltering a :DefensiveTechnique,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "Content Filtering" ;
     rdfs:subClassOf :DefensiveTechnique ;
-    :definition "A technique used to control, modify, or block the content that is being delivered in a network." .
+    rdfs:comment "Content normalization, sanitization, cleansing, and transformation of content submitted to a CDS such that the content, once processed, will comply with a predefined security policy. For example, content sanitization, cleansing, and transformation could remove potential malware from content that was submitted to the CDS." ;
+    :d3fend-id "'D3-CF'" ;
+    :definition "Content filtering is a technique used to control, modify, or block the content that is being delivered in a network. The process of changing the content to ensure it meets a defined policy; that is, a certain standards or rules." ;
+    :kb-article """## Technique Overview
 
-:ContentFlattening a owl:Class ;
+Content filtering is a technique to remove sensitive or malicious content by means of content modification (e.g., normallization, sanitization, cleansing, or transformation) of some source content to safely filtered content.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
+    :synonym "Content Modification" .
+
+:ContentFlattening a :ContentNormalization,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "Content Flattening" ;
-    rdfs:subClassOf :ContentTransliteration ;
-    rdfs:comment "For data types, the flattening technique usually involves rendering the original content into a presentation format. For example, a Microsoft PowerPoint® file can be flattened into a series of bitmap images (e.g., PNG or JPEG)." ;
-    :definition "Content flattening is a technique that converts a data type or protocol to a different and less complex data type or protocol." .
+    rdfs:subClassOf :ContentNormalization ;
+    :d3fend-id "D3-CFLAT" ;
+    :definition "Content flattening is a technique that converts a data type or protocol to a different and less complex data type or protocol." ;
+    :kb-article """## How it works
+
+For data types, the flattening technique usually involves rendering the original
+content into a presentation format.
+
+## Considerations
+
+* Pros
+  * Very effective in removing data attacks especially if the less complex data type/protocol is also filtered
+  * Can reduce some data hiding risks (by removing layers)
+  * Very effective against polyglot attacks
+
+* Cons
+  * Not effective for detecting or eliminating data disclosure attacks
+  * The conversion may require using vendor libraries or complex applications that are difficult to verify
+  * High probability the resulting data type/protocol will differ in some content and with major reduction in functionality from the original data type/protocol
+  * Converting back to the original format is usually impossible
+
+## Examples
+
+* A Microsoft PowerPoint® file can be flattenedinto a series of bitmap images (e.g., PNG or JPEG).""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 .
 
 :ContentMetadataTagging a owl:Class ;
     rdfs:label "Content Metadata Tagging" ;
@@ -3838,26 +3873,41 @@ This admission controller
     rdfs:comment "A CDR process step outlined in RTB v5.0." ;
     :definition "The process of adding metadata to content to support tracking of content." .
 
-:ContentModification a owl:Class ;
-    rdfs:label "Content Modification" ;
-    rdfs:subClassOf :ContentFiltering,
-        [ a owl:Restriction ;
-            owl:onProperty :modifies ;
-            owl:someValuesFrom :DigitalInformation ] ;
-    rdfs:comment "Content normalization, sanitization, cleansing, and transformation modify content submitted to a CDS such that the content, once processed, will comply with a predefined security policy. For example, content sanitization, cleansing, and transformation could remove potential malware from content that was submitted to the CDS." ;
-    :definition "The process of changing the content to ensure it meets certain standards or rules." .
+:ContentNormalization a :FormatConversion,
+        owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "Content Normalization" ;
+    rdfs:subClassOf :FormatConversion ;
+    :d3fend-id "D3-CN" ;
+    :definition "Content normalization is the technique of converting content from a specialized form into its standard or raw form." ;
+    :kb-article """## How it works
 
-:ContentNormalization a owl:Class ;
-    rdfs:label "Content Normalization ?sec" ;
-    rdfs:subClassOf :ContentTransliteration ;
-    rdfs:comment "For example, most fixed format text and binary data can be converted to XML without loss of information. Most bitmap images formats (e.g., JPEG, PNG, GIF, TIFF) can be converted into raw bitmaps without loss of information.",
-        "This technique is widely used and effective for filtering fixed format data (e.g., military messaging), images, audio, and video. The normalization process can usually occur off the CDS and is generally not considered security relevant." ;
-    :definition "The process of converting content from a specialized form into its standard or raw form without data loss." ;
+This technique is widely used and effective for filtering fixed format data (e.g., military messaging), images, audio, and video. The normalization process can usually occur off the CDS and is generally not considered security relevant. This is due to the filtering subsystem’s ability to filter the normalized data. 
+
+## Considerations
+
+* Pros
+  * There is no loss of fidelity in the data during the canonicalization process.
+  * Can be very effective for removing malware, malware C2 communications, and data exfiltration
+  * Can be used as a protocol break
+  * Works very well for fixed format data, imagery, video, audio
+  * Effective against polyglot attacks
+* Cons
+  * By itself provides limited filtering value for data hiding/disclosure
+  * Only works if there is a canonical form of the data
+
+An external system could convert a proprietary bitmap image format on a Microsoft Window Server® (because the software only runs on Microsoft Windows®) to a raw bitmap. The CDS would filter the raw bitmap. If the conversion failed to function correctly on the Microsoft Windows Server®, the CDS image filters would fail or destroy the unconverted dat
+
+## Examples
+
+* Most fixed format text and binary data can be converted to XML without loss of information. 
+* Most bitmap image formats (e.g., JPEG, PNG, GIF, TIFF) can be converted into raw bitmaps without loss of information.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
     :synonym "Content Canonicalization" .
 
 :ContentReconstruction a owl:Class ;
     rdfs:label "Content Reconstruction |" ;
-    rdfs:subClassOf :ContentModification ;
+    rdfs:subClassOf :ContentTransformation ;
     rdfs:comment "A CDR process step outlined in RTB v5.0." ;
     :definition "The process of rebuilding a file or data from components resulting from a content filtering pipeline." .
 
@@ -3865,42 +3915,118 @@ This admission controller
     rdfs:label "Content Redaction +" ;
     rdfs:subClassOf :ContentSubstitution ;
     rdfs:comment "Example: Replacing the first five numbers of a social security number with the “X” character." ;
-    :definition "The process of removing sensitive or confidential information from a document by deleting or masking data." .
+    :definition "The process of removing sensitive or confidential information from a document by deleting or masking data." ;
+    :synonym "Data Masking" .
 
-:ContentSanitization a owl:Class ;
+:ContentSanitization a :ContentFiltering,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "Content Sanitization" ;
-    rdfs:subClassOf :ContentModification ;
-    :definition "The process of removing sensitive information from a document or data file removes or modifies specific data within the content in a manner that renders the original data unrecoverable." ;
+    rdfs:subClassOf :ContentFiltering ;
+    :d3fend-id "D3-CSAN" ;
+    :definition "Content sanitization is a content filtering technique that systematically removes or alters specific data within the content, rendering the filtered data irretrievable, all in accordance with a pre-established policy." ;
+    :kb-article """## How it works
+
+Content sanitization removes or modifies data in a manner that makes some of the information within the original content unrecoverable.  Content sanitization makes these modifications acccording to a defined policy.  Content sanitization does not replace any specific content with other content.
+
+Sanitization, sometimes called “Writing Out Known Good”, removes anything that cannot be filtered or verified to be safe and if possible, for the data type, randomizes the internal structure (e.g., this is commonly done in PDF files.)
+
+## Considerations
+
+* Unlike content sanitization, a form of content transformation known as content substitution can replace specific content with other content. 
+* Note that content sanitization or cleansing does not replace the original content with “substitute” content. Whitespace is not considered “substitute” content.
+
+## Examples
+
+* Deleting tracked changes from a Microsoft Word® document
+* Removing metadata about the document’s author
+* Changing the color of the pixels in an image
+* Hiding explicit structuring or layering present in a media format""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
     :synonym "Content Cleansing" .
 
 :ContentStructureRandomization a owl:Class ;
     rdfs:label "Content Structure Randomization" ;
     rdfs:subClassOf :ContentSanitization .
 
-:ContentSubstitution a owl:Class ;
+:ContentSubstitution a :ContentTransformation,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "Content Substitution" ;
     rdfs:subClassOf :ContentTransformation ;
-    :definition "The process of replacing certain parts of the content with other \"substitute\" content." ;
-    :synonym "Data Masking",
-        "Data Obfuscation" .
+    :d3fend-id "D3-CSUB" ;
+    :definition "Content substitution is the content transformation technique which replaces certain parts of the filtred content with other \"substitute\" content, or providing substitute content of lower precision." ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
+    :synonym """## How it works
 
-:ContentSuspiciousActivityChecking a owl:Class ;
+Content substitution modifies specific data within the content such that (a) the original data is unrecoverable and (b) the original data has been replaced.
+
+## Considerations
+
+Note that this content transformation replaces the “transformed” portion of the original content with “substitute” content.
+
+## Examples
+
+* Reducing the precision of the latitude/longitude value for a coordinate
+* Replacing the first five numbers of a social security number with the “X” character.""",
+        "Data Obfuscation",
+        "Specific Content Substitution" .
+
+:ContentSuspiciousActivityChecking a :DynamicAnalysis,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "Content Suspicious Activity Checking" ;
     rdfs:subClassOf :DynamicAnalysis ;
+    :d3fend-id "D3-CSAC" ;
     :definition "Content suspicious activity checking is a kind of dynamic analysis that evaluates or executes content submitted to a CDS in a secure manner and using an appropriate application." ;
+    :kb-article """## How it works
+
+Suspicious Activity Checking (SAC) is a technique that evaluates or executes content submitted to a CDS in a secure manner and using an appropriate application.  This is frequently called "behavior analysis."  The SAC technique is a form of dynamic analyis and conducted using detonation chambers, sandboxes, and specialized hypervisors prepared for this purpose.
+
+SAC systems are widely used in enterprise environments to detect malicious content primarily arriving in email. 
+
+## Considerations
+
+* Pros
+  * Good at detecting if content is malicious 
+  * Proven effective at detecting some classes of zero-day attacks
+  * Can be effective against polyglot attacks
+
+* Cons
+  * Slowest filtering mechanism (5 to 10 minutes per file.) Because of the time it takes for analysis of the content, the technique is not commonly used inline for low latency, high throughput systems like web browsing.
+  * Has very limited ability to address Malware C2 and augmentation. This is usually detected by monitoring processes making abnormal communications (e.g., Microsoft Word® opening a socket to a remote external server)
+  * Does not address data hiding and data exfiltration issues
+  * Supports only a limited set of file types and primarily those that are based on applications that run on Microsoft Windows® like Microsoft Office® and Adobe Acrobat®. The targeted application must be loaded in the detonation chamber and the detonation chamber software has to be tuned for the correct behavior of the application in order for the detection to work.
+  * Lack of a “user on the system” to activate the malware. For example, sometimes you must read the document for several minutes, or scroll to page 7, or click OK to continue for the malware to start.
+  * The SAC detonation chamber environment can be detected by malware which can shutdown to avoid detection.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
     :synonym "SAC" .
 
-:ContentTransformation a owl:Class ;
+:ContentTransformation a :ContentFiltering,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "Content Transformation" ;
-    rdfs:subClassOf :ContentModification ;
-    :definition "The process of changing the format or structure of the content." .
+    rdfs:subClassOf :ContentFiltering ;
+    :d3fend-id "D3-CT" ;
+    :definition "Content Transformation is the process of removing or modifying specific data within the content that renders the original data unrecovereable." ;
+    :kb-article """## How it works
 
-:ContentTransliteration a owl:Class ;
-    rdfs:label "Content Transliteration" ;
-    rdfs:subClassOf :ContentTransformation ;
-    :definition "This technique converts a file to another similar (usually simpler and safer) format before converting it back to the original file format." ;
-    :synonym "Content Protocol Break",
-        "Format Conversion" .
+Content transformation is a content filtering technique wherein specific data within a file is selectively altered or converted into a different format or structure, based on a pre-established policy.
+
+## Considerations
+
+* Unlike content sanitization, a form of content transformation known as content substitution can replace specific content with other content. 
+
+## Examples
+
+* Modifying specific data withint the content such that (a) the original data is unrecoverable and (b) the original data has been replaced (see d3f:ContentSubstitution.)
+  * Reducing the precision of the latitude/longitude value for a coordinate
+  * Replacing the first five numbers of a social security number with the “X” character)
+
+* The format of the content is changed typically from one data type to another (see d3f:FormatConversion.) When this type of transformation action occurs on a protocol, it is sometimes called a “protocol break.”
+  * A PNG image could be transformed to a JPEG image
+  * HTTPS POST could be transformed to a Secure File Transfer Protocol (SFTP) PUT.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 .
 
 :ContentTruncation a owl:Class ;
     rdfs:label "Content Generalization + ?" ;
@@ -10908,10 +11034,21 @@ Protocol stream reassembly software recreates a directional byte stream by analy
 Analyzing a piece of code without it being executed in a sandbox, virtual machine, or simulator. Patterns or signatures in the file can indicate whati kind of software it is, including whether it is malware.""" ;
     :kb-reference :Reference-CyberVaccineAndPredictiveMalwareDefensiveMethodsAndSystems .
 
-:FileContentInspection a owl:Class ;
+:FileContentInspection a :FileContentAnalysis,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "File Content Inspection" ;
     rdfs:subClassOf :FileContentAnalysis ;
-    :definition "File content inspection is a type of file content analysis that analyzes the submitted content to verify that it complies with a defined security policy." .
+    :d3fend-id "D3-FCI" ;
+    :definition "File content inspection is a type of file content analysis that analyzes the submitted content to verify that it complies with a defined security policy." ;
+    :kb-article """## How it works
+
+File content inspection determinines the conformance of the content to allowed file constructs and content portions, identifying file constructs and content portions that are not allowed, and determining whether or not the content passes an antivirus scan.
+
+## Considerations
+
+Inspection relies on a robust understanding of the syntactic structure and semantic meaning of the content.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 .
 
 :FileContentRules a :FileContentAnalysis,
         owl:Class,
@@ -10942,11 +11079,22 @@ Rules, often called signatures, are used for both generic and targeted malware d
     :synonym "File Content Signatures",
         "File Signatures" .
 
-:FileContentVerification a owl:Class ;
+:FileContentVerification a :FileContentAnalysis,
+        owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "File Content Verification" ;
     rdfs:subClassOf :FileContentAnalysis ;
+    :d3fend-id "D3-FCV" ;
     :definition "File content verification is a type of file content analysis that ensures that the data type of the submitted content is in fact the type it appears to be." ;
-    :synonym "File Content Verification" .
+    :kb-article """## How it works
+
+A well-written verification filter will compare the submitted content’s structure with the structure of the corresponding specification or standard for that content. The content verification function should be performed prior to any inspection or sanitization action.
+
+## Considerations
+
+A very simple and somewhat unreliable form of verification is checking the magic number. This approach is sometimes used in CDS that process Complex Data because it is a fast way to route data to the appropriate filters. If the magic number was not correct (perhaps because of a malicious file) the content filters would stop the malicious file from being transferred.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
+    :synonym "File Content Type Verification" .
 
 :FileCreationAnalysis a owl:Class,
         owl:NamedIndividual,
@@ -11317,6 +11465,41 @@ The term "first-order" distinguishes first-order logic from higher-order logic, 
 :Forecasting a owl:Class ;
     rdfs:label "Forecasting" ;
     rdfs:subClassOf :AnalyticalPurpose .
+
+:FormatConversion a :ContentTransformation,
+        owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "Format Conversion" ;
+    rdfs:subClassOf :ContentTransformation ;
+    :d3fend-id "D3-FCON" ;
+    :definition "Format conversion is a technique that converts a file to another similar (usually simpler and safer) format before converting it back to the original file format." ;
+    :kb-article """## How it works
+
+Format conversion can disrupt malware by stripping out malicious content that cannot be represented in the intermediate format.
+
+## Considerations
+
+* Pros
+  * Can disrupt malware by altering file
+  * Can remove unwanted or risky features in the conversion process
+  * Can remove hidden data when layers are removed
+  * Very effective against polyglot atacks
+
+* Cons
+  * Does not handle disclosure risks (can increase)
+  * Might disrupt functionality of file/protocol
+  * Increases attack surface at the convert application
+
+* Some conversions like Office Open XML (OOXML) to Open Document Format (ODF) back to OOXML are not sufficiently different to provide security value. In this case, ODF and OOXML are nearly feature identical so many issues (especially data hiding, data disclosure and embedded content) are common to both formats.
+
+* Data hiding and disclosure filtering must be done prior to the format conversion as some format conversion techniques modify content in ways that their detection after conversion is problematic or impossible.
+
+## Examples
+
+* A commonly implemented example of format conversation is the converting PDF files to PostScript® back to PDF.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
+    :synonym "Content Protocol Break",
+        "Content Transliteration" .
 
 :ForwardProxyServer a owl:Class ;
     rdfs:label "Forward Proxy Server" ;
@@ -26493,6 +26676,24 @@ This requires filesystem data to determine whether files have been created.""" ;
     :kb-reference-title "CAR-2019-08-001: Credential Dumping via Windows Task Manager" ;
     :todo "MITRE Analysis was not found",
         "No section headers were given (MITRE Analysis or Document Abstract); all text placed in kb-abstract section." .
+
+:Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 a :GuidelineReference,
+        owl:NamedIndividual ;
+    rdfs:label "Reference - Cross Domain Solution (CDS) Design and Implementation Requirements: 2023 Raise the Bar (RTB) Baseline Release Version 5.0 (NCDSMO-R-00008-005_00 February 15, 2024)" ;
+    :has-link "https://intelshare.intelink.gov/sites/ncdsmo/Shared%20Documents/CDS%20Development/Raise%20the%20Bar%20(RTB)/NCDSMO-R-00008-005_00.pdf"^^xsd:anyURI ;
+    :kb-abstract "This document establishes architecture and implementation requirements for the development of cross domain solutions (CDS). The fundamental premise behind this document is that implementing security controls is not sufficient to make a CDS safe to operate or to perform its core function adequately.  While the primary objective of the Raise the Bar (RTB) Strategy is to ensure the United States Government (USG) has secure and resilient CDS, its secondary objective is to enable the development of CDS that can be quickly and securely enhanced with new capabilities and features." ;
+    :kb-author "National Cross Domain Strategy & Management Office (NCDSMO)" ;
+    :kb-organization "National Security Agency - Cybersecurity Directorate (NSA/CSD)" ;
+    :kb-reference-of :ContentFiltering,
+        :ContentFlattening,
+        :ContentNormalization,
+        :ContentSanitization,
+        :ContentSubstitution,
+        :ContentSuspiciousActivityChecking,
+        :ContentTransformation,
+        :FileContentInspection,
+        :FileContentVerification,
+        :FormatConversion .
 
 :Reference-CyberCommandSystemCYCS a :InternetArticleReference,
         owl:NamedIndividual ;
