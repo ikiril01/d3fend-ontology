@@ -3814,7 +3814,10 @@ This admission controller
         owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Content Filtering" ;
-    rdfs:subClassOf :DefensiveTechnique ;
+    rdfs:subClassOf :DefensiveTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :enables ;
+            owl:someValuesFrom :Isolate ] ;
     rdfs:comment "Content normalization, sanitization, cleansing, and transformation of content submitted to a CDS such that the content, once processed, will comply with a predefined security policy. For example, content sanitization, cleansing, and transformation could remove potential malware from content that was submitted to the CDS." ;
     :d3fend-id "'D3-CF'" ;
     :definition "Content filtering is a technique used to control, modify, or block the content that is being delivered in a network. The process of changing the content to ensure it meets a defined policy; that is, a certain standards or rules." ;
@@ -3828,13 +3831,12 @@ Content filtering is a technique to remove sensitive or malicious content by mea
         owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Content Flattening" ;
-    rdfs:subClassOf :ContentNormalization ;
+    rdfs:subClassOf :FormatConversion ;
     :d3fend-id "D3-CFLAT" ;
     :definition "Content flattening is a technique that converts a data type or protocol to a different and less complex data type or protocol." ;
     :kb-article """## How it works
 
-For data types, the flattening technique usually involves rendering the original
-content into a presentation format.
+For data types, the flattening technique usually involves rendering the original content into a presentation format.
 
 ## Considerations
 
@@ -3859,8 +3861,11 @@ content into a presentation format.
         owl:NamedIndividual ;
     rdfs:label "Content Normalization" ;
     rdfs:subClassOf :FormatConversion ;
+    rdfs:comment """Multiple definitions/descriptions in RTB: 
+6.5.3.4 par. 2: "Content normalization (also called canonicalization) converts the data to a simpler common form without loss of information."
+6.5.6.5 par. 1: "This technique converts content from a specialized form to its standardized or raw form.\"""" ;
     :d3fend-id "D3-CN" ;
-    :definition "Content normalization is the technique of converting content from a specialized form into its standard or raw form." ;
+    :definition "Content normalization id the tecnique of converting the data to a simpler common form without loss of information. It converts content from a specialized form into its standard or raw form." ;
     :kb-article """## How it works
 
 This technique is widely used and effective for filtering fixed format data (e.g., military messaging), images, audio, and video. The normalization process can usually occur off the CDS and is generally not considered security relevant. This is due to the filtering subsystem’s ability to filter the normalized data. 
