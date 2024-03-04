@@ -10985,15 +10985,15 @@ Protocol stream reassembly software recreates a directional byte stream by analy
     rdfs:label "File Content Analysis" ;
     rdfs:subClassOf :FileAnalysis ;
     :d3fend-id "D3-FCOA" ;
-    :definition "Employing a pattern matching algorithm to statically analyze the content of files." ;
+    :definition "Employing pattern matching to statically analyze the content of files." ;
     :kb-article """## How it works
 Analyzing a piece of code without it being executed in a sandbox, virtual machine, or simulator. Patterns or signatures in the file can indicate whati kind of software it is, including whether it is malware.""" ;
     :kb-reference :Reference-CyberVaccineAndPredictiveMalwareDefensiveMethodsAndSystems .
 
-:FileContentInspection a :FileContentAnalysis,
+:FileContentPolicy a :FileContentAnalysis,
         owl:Class,
         owl:NamedIndividual ;
-    rdfs:label "File Content Inspection" ;
+    rdfs:label "File Content Policy" ;
     rdfs:subClassOf :FileContentAnalysis ;
     :d3fend-id "D3-FCI" ;
     :definition "File content inspection is a type of file content analysis that analyzes the submitted content to verify that it complies with a defined security policy." ;
@@ -11004,7 +11004,8 @@ File content inspection determinines the conformance of the content to allowed f
 ## Considerations
 
 Inspection relies on a robust understanding of the syntactic structure and semantic meaning of the content.""" ;
-    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 .
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
+    :synonym "File Content Inspection" .
 
 :FileContentRules a :FileContentAnalysis,
         owl:Class,
@@ -11034,23 +11035,6 @@ Rules, often called signatures, are used for both generic and targeted malware d
         :Reference-SystemAndMethodsThereofForLogicalIdentificationOfMaliciousThreatsAcrossAPluralityOfEnd-pointDevicesCommunicativelyConnectedByANetwork_PaloAltoNetworksIncCyberSecdoLtd ;
     :synonym "File Content Signatures",
         "File Signatures" .
-
-:FileContentVerification a :FileContentAnalysis,
-        owl:Class,
-        owl:NamedIndividual ;
-    rdfs:label "File Content Verification" ;
-    rdfs:subClassOf :FileContentAnalysis ;
-    :d3fend-id "D3-FCV" ;
-    :definition "File content verification is a type of file content analysis that ensures that the data type of the submitted content is in fact the type it appears to be." ;
-    :kb-article """## How it works
-
-A well-written verification filter will compare the submitted content’s structure with the structure of the corresponding specification or standard for that content. The content verification function should be performed prior to any inspection or sanitization action.
-
-## Considerations
-
-A very simple and somewhat unreliable form of verification is checking the magic number. This approach is sometimes used in CDS that process Complex Data because it is a fast way to route data to the appropriate filters. If the magic number was not correct (perhaps because of a malicious file) the content filters would stop the malicious file from being transferred.""" ;
-    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
-    :synonym "File Content Type Verification" .
 
 :FileCreationAnalysis a owl:Class,
         owl:NamedIndividual,
@@ -11099,6 +11083,24 @@ Asymmetric encryption is typically accomplished using public and private key cer
             owl:someValuesFrom :Evict ] ;
     :d3fend-id "D3-FEV" ;
     :definition "File eviction techniques evict files from system storage." .
+
+:FileFormatVerification a :FileContentAnalysis,
+        owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "File Format Verification" ;
+    rdfs:subClassOf :FileContentAnalysis ;
+    :d3fend-id "D3-FCV" ;
+    :definition "File content verification is a type of file content analysis that ensures that the data type of the submitted content is in fact the type it appears to be." ;
+    :kb-article """## How it works
+
+A well-written verification filter will compare the submitted content’s structure with the structure of the corresponding specification or standard for that content. The content verification function should be performed prior to any inspection or sanitization action.
+
+## Considerations
+
+A very simple and somewhat unreliable form of verification is checking the magic number. This approach is sometimes used in CDS that process Complex Data because it is a fast way to route data to the appropriate filters. If the magic number was not correct (perhaps because of a malicious file) the content filters would stop the malicious file from being transferred.""" ;
+    :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
+    :synonym "File Content Type Verification",
+        "File Content Verification" .
 
 :FileHash a owl:Class ;
     rdfs:label "File Hash" ;
@@ -26647,8 +26649,8 @@ This requires filesystem data to determine whether files have been created.""" ;
         :ContentSubstitution,
         :ContentSuspiciousActivityChecking,
         :ContentTransformation,
-        :FileContentInspection,
-        :FileContentVerification,
+        :FileContentPolicy,
+        :FileFormatVerification,
         :FormatConversion .
 
 :Reference-CyberCommandSystemCYCS a :InternetArticleReference,
