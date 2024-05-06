@@ -1786,6 +1786,10 @@ Using either Certificate Revocation Lists (CRLs) or Online Certificate Status Pr
     rdfs:subClassOf :DigitalInformation ;
     :definition "The superclass for all kinds of embeddable content that might execute." .
 
+:ActiveContentRemoval a owl:Class ;
+    rdfs:label "Active Content Removal" ;
+    rdfs:subClassOf :ContentSanitization .
+
 :ActiveLearning a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Active Learning" ;
@@ -2017,6 +2021,9 @@ Agglomerative clustering starts with each data point as its own cluster. The alg
 
 3. Scikit-learn. (30 Jun 2023). Scikit-learn Documentation: Agglomerative Clustering.
 [Link](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html).""" .
+
+:AIFF a owl:Class ;
+    rdfs:subClassOf :AudioContainerFormat .
 
 :AlethicLogic a owl:Class,
         owl:NamedIndividual ;
@@ -2369,6 +2376,14 @@ Day, O., & Khoshgoftaar, T.M. (2017). A survey on heterogeneous transfer learnin
     rdfs:label "ATTACK Thing" ;
     :definition "ATTACK things are concepts defined in the ATT&CK Framework." .
 
+:AudioContainerFormat a owl:Class ;
+    rdfs:label "Audio Container Format" ;
+    rdfs:subClassOf :MediaContainerFormat .
+
+:AudioFileFormat a owl:Class ;
+    rdfs:label "Audio File Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
+
 :AudioInputDevice a owl:Class ;
     rdfs:label "Audio Input Device" ;
     rdfs:subClassOf :InputDevice ;
@@ -2569,6 +2584,9 @@ Wikipedia. (n.d.). Autoregressive model. [Link](https://en.wikipedia.org/wiki/Au
     :kb-article """## References
 Wikipedia. (n.d.). Average absolute deviation. [Link](https://en.wikipedia.org/wiki/Average_absolute_deviation)""" .
 
+:AVI a owl:Class ;
+    rdfs:subClassOf :MultimediaContainerFormat .
+
 :BarcodeScannerInputDevice a owl:Class ;
     rdfs:label "Barcode Scanner Input Device" ;
     skos:altLabel "Barcode Reader" ;
@@ -2721,6 +2739,9 @@ BERT (language model). (n.d.). In Wikipedia. [Link](https://en.wikipedia.org/wik
 
 IEEE Std 1003.1-2017: A file that refers to a device. A block special file is normally distinguished from a character special file by providing access to the device in a manner such that the hardware characteristics of the device are not visible.""" ;
     rdfs:seeAlso <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_79> .
+
+:BMP a owl:Class ;
+    rdfs:subClassOf :RasterImageFormat .
 
 :BookReference a owl:Class ;
     rdfs:label "Book Reference" ;
@@ -3097,11 +3118,6 @@ Classification and Regression Tree (CART) Algorithm. Analytics Steps. [Link](htt
             owl:onProperty :published ;
             owl:someValuesFrom xsd:dateTime ] .
 
-:CDRPolicy a owl:Class ;
-    rdfs:label "CDR Policy" ;
-    rdfs:subClassOf :Policy ;
-    :definition "A filtering policy for Content Disarm and Recovery." .
-
 :CDSDataflow a owl:Class ;
     rdfs:label "CDS Dataflow" ;
     rdfs:subClassOf :TrafficFlow ;
@@ -3109,7 +3125,7 @@ Classification and Regression Tree (CART) Algorithm. Analytics Steps. [Link](htt
 
 :CDSDomainRouter a owl:Class ;
     rdfs:label "CDS Domain Router" ;
-    rdfs:subClassOf :ContentFilter ;
+    rdfs:subClassOf :CDSProcessSoftware ;
     :definition "The CDS filter process responsible for the transfer of data between assured pipelines/FOEs operating at different security levels within the CDS." ;
     :synonym "DR" .
 
@@ -3587,6 +3603,10 @@ Wikipedia. (n.d.). Coefficient of variation. [Link](https://en.wikipedia.org/wik
     :definition "A network agent is software installed on a network node or device that transmits information back to a collector agent or management system.  Kinds of network agents include SNMP Agent, IPMI agents, WBEM agents, and many proprietary agents capturing network monitoring and management information." ;
     :synonym "Exporter" .
 
+:ColorSpaceManipulation a owl:Class ;
+    rdfs:label "Color Space Manipulation" ;
+    rdfs:subClassOf :SteganographyMinimization .
+
 :Command a owl:Class ;
     rdfs:label "Command" ;
     rdfs:subClassOf :DigitalEvent,
@@ -3652,15 +3672,6 @@ Wikipedia. (n.d.). Coefficient of variation. [Link](https://en.wikipedia.org/wik
     rdfs:subClassOf :ApplicationConfigurationFile ;
     :definition "A file containing Information used to configure the parameters and initial settings for a compiler." .
 
-:ComplexDocumentData a owl:Class ;
-    rdfs:label "Complex Document Data" ;
-    rdfs:subClassOf :DigitalInformation ;
-    owl:disjointWith [ a owl:Class ;
-            owl:intersectionOf (
-                    :FixedFormatData
-                    :StreamingData ) ] ;
-    :definition "A type of data that cannot be precisely defined and validated via a ruleset or schema and can contain one or more embedded data types." .
-
 :ComplexDocumentDataflow a owl:Class ;
     rdfs:label "Complex Document Dataflow" ;
     rdfs:subClassOf [ a owl:Class ;
@@ -3668,7 +3679,20 @@ Wikipedia. (n.d.). Coefficient of variation. [Link](https://en.wikipedia.org/wik
                     :CDSDataflow
                     [ a owl:Restriction ;
                         owl:onProperty :bearer-of ;
-                        owl:someValuesFrom :ComplexDocumentData ] ) ] .
+                        owl:someValuesFrom :ComplexDocumentDataFormat ] ) ] .
+
+:ComplexDocumentDataFormat a owl:Class ;
+    rdfs:label "Complex Document Data Format" ;
+    rdfs:subClassOf :DigitalInformation ;
+    owl:disjointWith [ a owl:Class ;
+            owl:intersectionOf (
+                    :FixedFormatData
+                    :StreamingData ) ] ;
+    :definition "A type of data that cannot be precisely defined and validated via a ruleset or schema and can contain one or more embedded data types." .
+
+:ComplexImageFormat a owl:Class ;
+    rdfs:label "Complex Image Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
 
 :CompositeTechnique a owl:Class ;
     rdfs:label "Composite Technique" ;
@@ -3880,14 +3904,20 @@ This admission controller
     rdfs:label "Content Artifact" ;
     rdfs:subClassOf :DigitalInformation ;
     rdfs:comment "Term of art from Cross-Domain Solutions (CDS)." ;
-    :definition "Content that has been extracted from other content being filtered." .
+    :definition "Content that has been extracted from other content being filtered (e.g., JPEG from a MS Word document.)" .
 
 :ContentFilter a owl:Class ;
     rdfs:label "Content Filter" ;
     rdfs:subClassOf :CDSProcessSoftware,
         [ a owl:Restriction ;
             owl:onProperty :directed-by ;
-            owl:someValuesFrom :FilterPolicy ] ;
+            owl:someValuesFrom :DataflowFilteringPolicy ],
+        [ a owl:Restriction ;
+            owl:onProperty :filters ;
+            owl:someValuesFrom :DigitalInformation ],
+        [ a owl:Restriction ;
+            owl:onProperty :implements ;
+            owl:someValuesFrom :ContentFiltering ] ;
     :definition "A process or a set of processes, that applies a filter policy to content." .
 
 :ContentFiltering a :DefensiveTechnique,
@@ -3941,6 +3971,10 @@ For data types, the flattening technique usually involves rendering the original
     rdfs:subClassOf :ContentFiltering ;
     :definition "Content labeling is the application of security markings to objects in a system." .
 
+:ContentMetadataRemoval a owl:Class ;
+    rdfs:label "Content Metadata Removal" ;
+    rdfs:subClassOf :ContentSanitization .
+
 :ContentNormalization a :LossyFormatConversion,
         owl:Class,
         owl:NamedIndividual ;
@@ -3975,6 +4009,22 @@ An external system could convert a proprietary bitmap image format on a Microsof
 * Most bitmap image formats (e.g., JPEG, PNG, GIF, TIFF) can be converted into raw bitmaps without loss of information.""" ;
     :kb-reference :Reference-CrossDomainSolutionCDSDesignAndImplementationRequirements_2023RaiseTheBarRTBBaselineReleaseVersion5_0 ;
     :synonym "Content Canonicalization" .
+
+:ContentNormalizationBinaryToXML a owl:Class ;
+    rdfs:label "Content Normalization Binary to XML" ;
+    rdfs:subClassOf :ContentNormalization .
+
+:ContentNormalizationFixedFormatToXML a owl:Class ;
+    rdfs:label "Content Normalization Fixed Format to XML" ;
+    rdfs:subClassOf :ContentNormalization .
+
+:ContentNormalizationImageToRawBitmap a owl:Class ;
+    rdfs:label "Content Normalization Image to Raw Bitmap" ;
+    rdfs:subClassOf :ContentNormalizationToRawForm .
+
+:ContentNormalizationToRawForm a owl:Class ;
+    rdfs:label "Content Normalization To Raw Form" ;
+    rdfs:subClassOf :ContentNormalization .
 
 :ContentSanitization a :ContentFiltering,
         owl:Class,
@@ -4376,6 +4426,9 @@ Management servers with enterprise policies for account management provide the a
 :CrossDomainSolution a owl:Class ;
     rdfs:label "Cross-Domain Solution" ;
     rdfs:subClassOf :DigitalSystem,
+        [ a owl:Restriction ;
+            owl:onProperty :contains ;
+            owl:someValuesFrom :FilterOrchestrationEngine ],
         [ a owl:Restriction ;
             owl:onProperty :may-contain ;
             owl:someValuesFrom :CDSPipeline ] ;
@@ -9406,7 +9459,9 @@ Some capabilities sanitize queries before permitting them to be transmitted to t
 :DataflowFilteringPolicy a owl:Class ;
     rdfs:label "Dataflow Filtering Policy" ;
     rdfs:subClassOf :Policy ;
-    :definition "A dataflow filtering policy is the policy that directs the filtering, describing the transport protocol, allowed content types, and the content filtering actions required to address the data attack, data hiding and data disclosure risks of the content being transferred." .
+    :definition "A dataflow filtering policy is the policy that directs the filtering, describing the transport protocol, allowed content types, and the content filtering actions required to address the data attack, data hiding and data disclosure risks of the content being transferred." ;
+    :synonym "CDR Policy",
+        "Filter Policy" .
 
 :DataInventory a :AssetInventory,
         owl:Class,
@@ -10546,6 +10601,10 @@ This technique is distinct from d3f:EmailDeletion because it prevents an email f
 * The effectiveness of mail filters depend on the completeness of the filter policies""" ;
     :kb-reference :Reference-SystemAndMethodForProvidingAnonymousRemailingAndFilteringOfElectronicMail_Nokia .
 
+:EmailFormat a owl:Class ;
+    rdfs:label "Email Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
+
 :EmailRemoval a :FileRemoval,
         owl:Class,
         owl:NamedIndividual ;
@@ -10584,6 +10643,10 @@ Email files may propagate through many storage systems across the an organizatio
     rdfs:subClassOf :ClientComputer ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Embedded_system> ;
     :definition "An embedded computer is a computer system -- a combination of a computer processor, computer memory, and input/output peripheral devices-that has a dedicated function within a larger mechanical or electrical system. It is embedded as part of a complete device often including electrical or electronic hardware and mechanical parts. Because an embedded system typically controls physical operations of the machine that it is embedded within, it often has real-time computing constraints. Embedded systems control many devices in common use today. Ninety-eight percent of all microprocessors manufactured are used in embedded systems." .
+
+:EmbeddedExecutableRemoval a owl:Class ;
+    rdfs:label "Embedded Executable Removal" ;
+    rdfs:subClassOf :ActiveContentRemoval .
 
 :EmulatedFileAnalysis a :FileAnalysis,
         owl:Class,
@@ -11082,6 +11145,10 @@ Protocol stream reassembly software recreates a directional byte stream by analy
 - File type identification can be a difficult process which can be exploited by adversaries.""" ;
     :kb-reference :Reference-ComputerWormDefenseSystemAndMethod_FireEyeInc .
 
+:FileContainerFormat a owl:Class ;
+    rdfs:label "File Container Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
+
 :FileContentAnalysis a :FileAnalysis,
         owl:Class,
         owl:NamedIndividual ;
@@ -11362,13 +11429,15 @@ On Windows systems, deleting a file in File Explorer does not permanently delete
 
 :FilterOrchestrationEngine a owl:Class ;
     rdfs:label "Filter Orchestration Engine" ;
-    rdfs:subClassOf :DigitalInformationBearer ;
+    rdfs:subClassOf :DigitalSystem,
+        [ a owl:Restriction ;
+            owl:onProperty :implements ;
+            owl:someValuesFrom :FileEviction ],
+        [ a owl:Restriction ;
+            owl:onProperty :runs ;
+            owl:someValuesFrom :CDSProcessSoftware ] ;
     :definition "A set of processes that are used to coordinate the filtering of the content being transferred through the CDS." ;
     :synonym "FOE" .
-
-:FilterPolicy a owl:Class ;
-    rdfs:label "Filter Policy" ;
-    rdfs:subClassOf :Policy .
 
 :FingerPrintScannerInputDevice a owl:Class ;
     rdfs:label "Finger Print Scanner Input Device" ;
@@ -11532,7 +11601,7 @@ The term "first-order" distinguishes first-order logic from higher-order logic, 
     rdfs:subClassOf :DigitalInformation ;
     owl:disjointWith [ a owl:Class ;
             owl:intersectionOf (
-                    :ComplexDocumentData
+                    :ComplexDocumentDataFormat
                     :StreamingData ) ] ;
     :definition "A type of data that can be precisely defined and validated via a ruleset or schema." .
 
@@ -11715,6 +11784,9 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
             owl:onProperty :queries ;
             owl:someValuesFrom :Thread ] ;
     rdfs:seeAlso "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext" .
+
+:GIF a owl:Class ;
+    rdfs:subClassOf :RasterImageFormat .
 
 :GlobalUserAccount a owl:Class ;
     rdfs:label "Global User Account" ;
@@ -11976,6 +12048,10 @@ Wang, Q., Mao, K. Z., Wang, B., & Guan, J. (2017). Big data clustering by hybrid
     :kb-article """## References
 Wang, Q., Mao, K. Z., Wang, B., & Guan, J. (2017). Big data clustering by hybrid optimization algorithm. Journal of Big Data, 4(1), 25. [Link](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-017-0089-0).""" .
 
+:HiddenDataFiltering a owl:Class ;
+    rdfs:label "Hidden Data Filtering" ;
+    rdfs:subClassOf :ContentSanitization .
+
 :HierarchicalClustering a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Hierarchical Clustering" ;
@@ -12132,6 +12208,9 @@ A homoglyph, in this context, is a deceptive string or word which looks like a t
     rdfs:isDefinedBy <http://dbpedia.org/resource/Hostname> ;
     :definition "In computer networking, a hostname (archaically nodename) is a label that is assigned to a device connected to a computer network and that is used to identify the device in various forms of electronic communication, such as the World Wide Web. Hostnames may be simple names consisting of a single word or phrase, or they may be structured." .
 
+:HTML a owl:Class ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
+
 :HTMLFile a owl:Class ;
     rdfs:label "HTML File" ;
     skos:altLabel "HTML File" ;
@@ -12251,12 +12330,20 @@ MathWorks. (n.d.). Get Started with GANs for Image-to-Image Translation. [Link](
     rdfs:seeAlso "Process Code Segment",
         <http://dbpedia.org/resource/Code_segment> .
 
+:ImageContainerFormat a owl:Class ;
+    rdfs:label "Image Container Format" ;
+    rdfs:subClassOf :MediaContainerFormat .
+
 :ImageDataSegment a owl:Class ;
     rdfs:label "Image Data Segment" ;
     rdfs:subClassOf :ImageSegment ;
     :definition "An image data segment (often denoted .data) is a portion of an object file that contains initialized static variables, that is, global variables and static local variables. The size of this segment is determined by the size of the values in the program's source code, and does not change at run time. This segmenting of the memory space into discrete blocks with specific tasks carried over into the programming languages of the day and the concept is still widely in use within modern programming languages." ;
     rdfs:seeAlso "Process Data Segment",
         <http://dbpedia.org/resource/Data_segment> .
+
+:ImageFileFormat a owl:Class ;
+    rdfs:label "Image File Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
 
 :ImageScannerInputDevice a owl:Class ;
     rdfs:label "Image Scanner Input Device" ;
@@ -12938,6 +13025,9 @@ Potential for false positives from anomalies that are not associated with malici
 :JournalArticle a owl:Class ;
     rdfs:label "Journal Article" ;
     rdfs:subClassOf :AcademicArticle .
+
+:JPEG a owl:Class ;
+    rdfs:subClassOf :RasterImageFormat .
 
 :K-CenterClustering a owl:Class,
         owl:NamedIndividual ;
@@ -13839,6 +13929,9 @@ Format conversion can disrupt malware by stripping out malicious content that ca
     :synonym "Content Protocol Break",
         "Content Transliteration" .
 
+:M4V a owl:Class ;
+    rdfs:subClassOf :VideoFileFormat .
+
 :MachineLearning a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Machine Learning" ;
@@ -13854,6 +13947,10 @@ Machine learning." Wikipedia. [Link](https://en.wikipedia.org/wiki/Machine_learn
     rdfs:subClassOf :PasswordStore ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Keychain_(software)> ;
     :definition "Keychain is the password management system in macOS, developed by Apple. It was introduced with Mac OS 8.6, and has been included in all subsequent versions of the operating system, now known as macOS. A Keychain can contain various types of data: passwords (for websites, FTP servers, SSH accounts, network shares, wireless networks, groupware applications, encrypted disk images), private keys, certificates, and secure notes." .
+
+:MacroRemoval a owl:Class ;
+    rdfs:label "Macro Removal" ;
+    rdfs:subClassOf :ScriptRemoval .
 
 :MailNetworkTraffic a owl:Class ;
     rdfs:label "Mail Network Traffic" ;
@@ -13947,6 +14044,14 @@ Initial planning of access model and continuous monitoring of the available user
     rdfs:subClassOf :Subroutine ;
     :definition "Computes mathematical expressions." .
 
+:MatroskaContainerFormat a owl:Class ;
+    rdfs:label "Matroska Container Format" ;
+    rdfs:subClassOf :VideoContainerFormat .
+
+:MatroskaVideoFormat a owl:Class ;
+    rdfs:label "Matroska Video Format" ;
+    rdfs:subClassOf :VideoFileFormat .
+
 :Maximum-marginLearning a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Maximum-margin Learning" ;
@@ -13976,6 +14081,10 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
     :kb-article """## References
 Wikipedia. (n.d.). Average absolute deviation. [Link](https://en.wikipedia.org/wiki/Average_absolute_deviation)""" ;
     :synonym "MAD" .
+
+:MediaContainerFormat a owl:Class ;
+    rdfs:label "Media Container Format" ;
+    rdfs:subClassOf :FileContainerFormat .
 
 :MediaGeneration a owl:Class ;
     rdfs:label "Media Generation" ;
@@ -14350,6 +14459,13 @@ Wikipedia. (n.d.). Moment (mathematics). [Link](https://en.wikipedia.org/wiki/Mo
 Wikipedia. (n.d.). Moving average model. [Link](https://en.wikipedia.org/wiki/Moving_average_model)""" ;
     :synonym "MA Model" .
 
+:MP4 a owl:Class ;
+    rdfs:subClassOf :MultimediaContainerFormat .
+
+:MPEG-4_Part_12 a owl:Class ;
+    rdfs:label "MPEG-4 Part 12" ;
+    rdfs:subClassOf :VideoContainerFormat .
+
 :Multi-factorAuthentication a :CredentialHardening,
         owl:Class,
         owl:NamedIndividual ;
@@ -14380,11 +14496,19 @@ MFA configuration steps may vary across accounts and in some cases left up to us
     :kb-article """## References
 Multilayer perceptron. Wikipedia. [Link](https://en.wikipedia.org/wiki/Multilayer_perceptron).""" .
 
+:MultimediaContainerFormat a owl:Class ;
+    rdfs:label "Multimedia Container Format" ;
+    rdfs:subClassOf :MediaContainerFormat .
+
 :MultimediaDocumentFile a owl:Class ;
     rdfs:label "Multimedia Document File" ;
     rdfs:subClassOf :DocumentFile ;
     :definition "Digital video files which often contain audio." ;
     rdfs:seeAlso "https://dbpedia.org/page/Multimedia" .
+
+:MultimediaFormat a owl:Class ;
+    rdfs:label "Multimedia Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
 
 :MultipleRegression a owl:Class,
         owl:NamedIndividual ;
@@ -14876,6 +15000,13 @@ Wikipedia. (n.d.). Nonlinear regression. [Link](https://en.wikipedia.org/wiki/No
     rdfs:subClassOf :DocumentFile ;
     :definition "A document file in a format associated with an d3f:OfficeApplication." ;
     rdfs:seeAlso "d3f:OfficeApplication" .
+
+:Ogg a owl:Class ;
+    rdfs:subClassOf :MultimediaContainerFormat .
+
+:OggVideo a owl:Class ;
+    rdfs:label "Ogg Video File Format" ;
+    rdfs:subClassOf :VideoFileFormat .
 
 :One-timePassword a :CredentialHardening,
         owl:Class,
@@ -15882,6 +16013,10 @@ NOTE: not synonymous with data link as a data link can be over a telecommunicati
     :kb-article """## References
 Esri. (n.d.). How Pix2Pix Works. [Link](https://developers.arcgis.com/python/guide/how-pix2pix-works/)""" .
 
+:PixelManipulation a owl:Class ;
+    rdfs:label "Pixel Manipulation" ;
+    rdfs:subClassOf :SteganographyMinimization .
+
 :PlainText a owl:Class ;
     rdfs:label "Plain Text" ;
     rdfs:subClassOf :Text ;
@@ -15948,6 +16083,9 @@ Monitored platform components includes system files and embedded devices such as
  * System libraries and dynamically loaded files
  * Hardware device drivers
  * Embedded firmware devices""" .
+
+:PNG a owl:Class ;
+    rdfs:subClassOf :RasterImageFormat .
 
 :Point-biserialCorrelationCoefficient a owl:Class,
         owl:NamedIndividual ;
@@ -16030,6 +16168,11 @@ Policy Gradients in a Nutshell. Towards Data Science.  [Link](https://towardsdat
     rdfs:label "Policy Reference" ;
     rdfs:subClassOf :TechniqueReference ;
     :pref-label "Policy" .
+
+:PortableDocumentFormat a owl:Class ;
+    rdfs:label "Portable Document Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat ;
+    :synonym "PDF" .
 
 :PortfolioAssessment a owl:Class ;
     rdfs:label "Portfolio Assessment" ;
@@ -16851,6 +16994,13 @@ Wikipedia. (n.d.). Range (statistics). [Link](https://en.wikipedia.org/wiki/Rang
     :definition "A rank correlation is any of several statistics that measure an ordinal association-the relationship between rankings of different ordinal variables or different rankings of the same variable, where a \"ranking\" is the assignment of the ordering labels \"first\", \"second\", \"third\", etc. to different observations of a particular variable." ;
     :kb-article "Wikipedia. (n.d.). Rank correlation. [Link](https://en.wikipedia.org/wiki/Rank_correlation)" .
 
+:RAR a owl:Class ;
+    rdfs:subClassOf :FileContainerFormat .
+
+:RasterImageFormat a owl:Class ;
+    rdfs:label "Raster Image Format" ;
+    rdfs:subClassOf :ImageFileFormat .
+
 :RawMemoryAccessFunction a owl:Class ;
     rdfs:label "Raw Memory Access Function" ;
     rdfs:subClassOf :Subroutine,
@@ -17557,6 +17707,10 @@ Software installed on the host system hooks into a scripting engine to intercept
 ## Considerations
 List of known unauthorized script files or regular expression patterns must be kept up to date to ensure detection of new threats.""" ;
     :kb-reference :Reference-DetectingScript-basedMalware_CrowdstrikeInc .
+
+:ScriptRemoval a owl:Class ;
+    rdfs:label "Script Removal" ;
+    rdfs:subClassOf :ActiveContentRemoval .
 
 :Second-stageBootLoader a owl:Class ;
     rdfs:label "Second-stage Boot Loader" ;
@@ -18418,6 +18572,10 @@ Wikipedia. (n.d.). Standard deviation. [Link](https://en.wikipedia.org/wiki/Stan
     :kb-article """## References
 Wolfram MathWorld. (n.d.). Statistics. [Link](https://mathworld.wolfram.com/Statistics.html)""" .
 
+:SteganographyMinimization a owl:Class ;
+    rdfs:label "Steganography Minimization" ;
+    rdfs:subClassOf :HiddenDataFiltering .
+
 :Step a owl:Class ;
     rdfs:subClassOf :D3FENDThing,
         [ a owl:Restriction ;
@@ -18455,7 +18613,7 @@ Wolfram MathWorld. (n.d.). Statistics. [Link](https://mathworld.wolfram.com/Stat
     rdfs:subClassOf :DigitalInformation ;
     owl:disjointWith [ a owl:Class ;
             owl:intersectionOf (
-                    :ComplexDocumentData
+                    :ComplexDocumentDataFormat
                     :FixedFormatData ) ] ;
     :definition "A type of data that can be precisely defined and validated via a ruleset or schema but is delivered to the CDS as a stream of messages." .
 
@@ -18591,6 +18749,9 @@ About Support Vector Machine (SVM). IBM SPSS Modeler SaaS Documentation. [Link](
             owl:someValuesFrom :Thread ] ;
     :definition "Suspending a thread causes the thread to stop executing user-mode code." ;
     rdfs:seeAlso "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-suspendthread" .
+
+:SVG a owl:Class ;
+    rdfs:subClassOf :VectorImageFormat .
 
 :Switch a owl:Class ;
     rdfs:label "Switch" ;
@@ -24171,6 +24332,9 @@ Wikipedia. (n.d.). T-distributed stochastic neighbor embedding. [Link](https://e
     rdfs:isDefinedBy <http://dbpedia.org/resource/Tablet_computer> ;
     :definition "A tablet computer, commonly shortened to tablet, is a mobile device, typically with a mobile operating system and touchscreen display processing circuitry, and a rechargeable battery in a single, thin and flat package. Tablets, being computers, do what other personal computers do, but lack some input/output (I/O) abilities that others have. Modern tablets largely resemble modern smartphones, the only differences being that tablets are relatively larger than smartphones, with screens 7 inches (18 cm) or larger, measured diagonally, and may not support access to a cellular network." .
 
+:TAR a owl:Class ;
+    rdfs:subClassOf :FileContainerFormat .
+
 :TargetAudience a owl:Class ;
     rdfs:label "Target Audience" ;
     rdfs:subClassOf :D3FENDUseCaseThing .
@@ -24284,6 +24448,9 @@ Temporal difference learning. Wikipedia.  [Link](https://en.wikipedia.org/wiki/T
     rdfs:isDefinedBy <http://dbpedia.org/resource/Ticket_Granting_Ticket> ;
     :definition "In some computer security systems, a Ticket Granting Ticket or Ticket to Get Tickets (TGT) is a small, encrypted identification file with a limited validity period. After authentication, this file is granted to a user for data traffic protection by the key distribution center (KDC) subsystem of authentication services such as Kerberos. The TGT file contains the session key, its expiration date, and the user's IP address, which protects the user from man-in-the-middle attacks. The TGT is used to obtain a service ticket from Ticket Granting Service (TGS). User is granted access to network services only after this service ticket is provided." ;
     rdfs:seeAlso <http://dbpedia.org/resource/Charlie_and_the_Chocolate_Factory> .
+
+:TIFF a owl:Class ;
+    rdfs:subClassOf :ImageContainerFormat .
 
 :TimeSeriesAnalysis a owl:Class,
         owl:NamedIndividual ;
@@ -24472,6 +24639,11 @@ Intro to Active Learning. inovex Blog.  [Link](https://www.inovex.de/de/blog/int
     :d3fend-id "D3-ULA" ;
     :definition "Restoring a user account's access to resources by unlocking a locked User Account." ;
     :kb-reference :Reference-CybersecurityIncidentandVulnerabilityResponsePlaybooks .
+
+:UnrecognizedContentRemoval a owl:Class ;
+    rdfs:label "Unrecognized Content Removal" ;
+    rdfs:subClassOf :ContentSanitization ;
+    :synonym "Unprocessable Content Removal" .
 
 :UnsupervisedLearning a owl:Class,
         owl:NamedIndividual ;
@@ -24828,6 +25000,10 @@ Wikipedia. (n.d.). Variance. [Link](https://en.wikipedia.org/wiki/Variance)""" .
     :kb-article """## References
 Intro to Active Learning. inovex Blog.  [Link](https://www.inovex.de/de/blog/intro-to-active-learning/).""" .
 
+:VectorImageFormat a owl:Class ;
+    rdfs:label "Vector Image Format" ;
+    rdfs:subClassOf :ImageFileFormat .
+
 :Vendor a owl:Class ;
     rdfs:label "Vendor" ;
     rdfs:subClassOf :Provider,
@@ -24843,6 +25019,14 @@ Intro to Active Learning. inovex Blog.  [Link](https://www.inovex.de/de/blog/int
     rdfs:isDefinedBy <http://dbpedia.org/resource/Version_control> ;
     :definition "Version control tools are tools that used to conduct version control. A  component of software configuration management, version control, also known as revision control, source control, or source code management systems are systems responsible for the management of changes to documents, computer programs, large web sites, and other collections of information. Changes are usually identified by a number or letter code, termed the \"revision number\", \"revision level\", or simply \"revision\". For example, an initial set of files is \"revision 1\". When the first change is made, the resulting set is \"revision 2\", and so on. Each revision is associated with a timestamp and the person making the change. Revisions can be compared, restored, and with some types of files, merged." ;
     rdfs:seeAlso <http://dbpedia.org/resource/Software_configuration_management> .
+
+:VideoContainerFormat a owl:Class ;
+    rdfs:label "Video Container Format" ;
+    rdfs:subClassOf :MediaContainerFormat .
+
+:VideoFileFormat a owl:Class ;
+    rdfs:label "Video File Format" ;
+    rdfs:subClassOf :ComplexDocumentDataFormat .
 
 :VideoInputDevice a owl:Class ;
     rdfs:label "Video Input Device" ;
@@ -24914,6 +25098,13 @@ It is a combination of VPN hardware and software technologies that provides VPN 
 
 :Vulnerability a owl:Class ;
     rdfs:subClassOf :D3FENDThing .
+
+:WatermarkAddition a owl:Class ;
+    rdfs:label "Watermark Addition" ;
+    rdfs:subClassOf :ContentTransformation .
+
+:WAV a owl:Class ;
+    rdfs:subClassOf :AudioContainerFormat .
 
 :Weakness a owl:Class ;
     rdfs:label "Weakness" ;
@@ -25033,6 +25224,9 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
     rdfs:subClassOf :Network ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Local_area_network> ;
     :definition "By contrast to a local area network (LAN), a wide area network (WAN), not only covers a larger geographic distance, but also generally involves leased telecommunication circuits or Internet links." .
+
+:WindowsMetafile a owl:Class ;
+    rdfs:subClassOf :ImageContainerFormat .
 
 :WindowsNtAllocateVirtualMemory a owl:Class ;
     rdfs:label "Windows NtAllocateVirtualMemory" ;
@@ -25302,6 +25496,9 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
     rdfs:subClassOf :ThinClientComputer ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Thin_client#Zero_client> ;
     :definition "Zero client is also referred as ultra thin client, contains no moving parts but centralizes all processing and storage to just what is running on the server. As a result, it requires no local driver to install, no patch management, and no local operating system licensing fees or updates. The device consumes very little power and is tamper-resistant and completely incapable of storing any data locally, providing a more secure endpoint." .
+
+:ZIP a owl:Class ;
+    rdfs:subClassOf :FileContainerFormat .
 
 ### Individuals
 
@@ -29885,6 +30082,19 @@ With keystroke dynamics the biometric template used to identify an individual is
 
 [] a owl:AllDisjointClasses ;
     owl:members (
+            :ContentNormalizationBinaryToXML
+            :ContentNormalizationFixedFormatToXML
+            :ContentNormalizationImageToRawBitmap
+            :ContentNormalizationToRawForm ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
+            :ContentSubstitution
+            :LossyFormatConversion
+            :WatermarkAddition ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
             :D3FENDUseCase
             :TargetAudience
             :UseCaseGoal
@@ -29914,6 +30124,12 @@ With keystroke dynamics the biometric template used to identify an individual is
             :Kurtosis
             :Moments
             :Skewness ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
+            :RAR
+            :TAR
+            :ZIP ) .
 
 ### Annotations
 
