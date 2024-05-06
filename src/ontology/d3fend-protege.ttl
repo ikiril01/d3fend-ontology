@@ -4016,7 +4016,11 @@ An external system could convert a proprietary bitmap image format on a Microsof
 
 :ContentNormalizationImageToRawBitmap a owl:Class ;
     rdfs:label "Content Normalization Image to Raw Bitmap" ;
-    rdfs:subClassOf :ContentNormalizationToRawForm .
+    rdfs:subClassOf :ContentNormalizationToRawForm ;
+    owl:disjointWith [ a owl:Class ;
+            owl:intersectionOf (
+                    :ContentNormalizationBinaryToXML
+                    :ContentNormalizationFixedFormatToXML ) ] .
 
 :ContentNormalizationToRawForm a owl:Class ;
     rdfs:label "Content Normalization To Raw Form" ;
@@ -17726,7 +17730,7 @@ List of known unauthorized script files or regular expression patterns must be k
 
 :SecurityLevel a owl:Class ;
     rdfs:label "Security Level" ;
-    rdfs:subClassOf :Policy ;
+    rdfs:subClassOf :DigitalInformation ;
     :definition "A combination of classification, releasability, dissemination controls, and handling caveats." .
 
 :SecurityToken a owl:Class ;
@@ -30071,13 +30075,6 @@ With keystroke dynamics the biometric template used to identify an individual is
             :Range
             :StandardDeviation
             :Variance ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members (
-            :ContentNormalizationBinaryToXML
-            :ContentNormalizationFixedFormatToXML
-            :ContentNormalizationImageToRawBitmap
-            :ContentNormalizationToRawForm ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members (
