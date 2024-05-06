@@ -3690,10 +3690,6 @@ Wikipedia. (n.d.). Coefficient of variation. [Link](https://en.wikipedia.org/wik
                     :StreamingData ) ] ;
     :definition "A type of data that cannot be precisely defined and validated via a ruleset or schema and can contain one or more embedded data types." .
 
-:ComplexImageFormat a owl:Class ;
-    rdfs:label "Complex Image Format" ;
-    rdfs:subClassOf :ComplexDocumentDataFormat .
-
 :CompositeTechnique a owl:Class ;
     rdfs:label "Composite Technique" ;
     rdfs:subClassOf :D3FENDThing ;
@@ -14505,10 +14501,6 @@ Multilayer perceptron. Wikipedia. [Link](https://en.wikipedia.org/wiki/Multilaye
     rdfs:subClassOf :DocumentFile ;
     :definition "Digital video files which often contain audio." ;
     rdfs:seeAlso "https://dbpedia.org/page/Multimedia" .
-
-:MultimediaFormat a owl:Class ;
-    rdfs:label "Multimedia Format" ;
-    rdfs:subClassOf :ComplexDocumentDataFormat .
 
 :MultipleRegression a owl:Class,
         owl:NamedIndividual ;
