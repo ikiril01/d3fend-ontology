@@ -26801,15 +26801,210 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
     rdfs:label "DISA FSO" ;
     :definition "Defense Information Systems Agency (DISA) Field Security Office (FSO)" .
 
+:DS0001 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Firmware (ATTACK)" ;
+    :d3fend-mapping-exactly :Firmware .
+
+:DS0002 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "User Account (ATTACK)" ;
+    :d3fend-mapping-exactly :UserAccount .
+
+:DS0003 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Scheduled Job (ATTACK)" ;
+    :d3fend-mapping-exactly :ScheduledJob .
+
+:DS0004 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Malware Repository (ATTACK)" ;
+    :d3fend-mapping-broader :DigitalInformation .
+
+:DS0005 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "WMI (ATTACK)" ;
+    :d3fend-mapping-narrower :SystemServiceSoftware .
+
+:DS0006 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Web Credential (ATTACK)" ;
+    :d3fend-mapping-exactly :Credential .
+
+:DS0007 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Image (ATTACK)" ;
+    :d3fend-mapping-broader :SoftwarePackage .
+
+:DS0008 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Kernel (ATTACK)" ;
+    :d3fend-mapping-exactly :Kernel .
+
+:DS0009 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Process (ATTACK)" ;
+    :d3fend-mapping-exactly :Process .
+
+:DS0010 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Cloud Storage (ATTACK)" ;
+    :d3fend-mapping-exactly :CloudStorage .
+
+:DS0011 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Module (ATTACK)" ;
+    :d3fend-mapping-exactly :ObjectFile .
+
+:DS0012 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Script (ATTACK)" ;
+    :d3fend-mapping-exactly :ExecutableScript .
+
+:DS0013 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Sensor Health (ATTACK)" ;
+    :d3fend-mapping-broader :Log .
+
+:DS0014 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Pod (ATTACK)" ;
+    :d3fend-mapping-narrower :ContainerImage .
+
 :DS0015 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Application Log (ATTACK)" ;
     :d3fend-mapping-exactly :Log .
 
+:DS0016 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Drive (ATTACK)" ;
+    :d3fend-mapping-broader :SecondaryStorage .
+
+:DS0017 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Command (ATTACK)" ;
+    :d3fend-mapping-exactly :Command .
+
+:DS0018 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Firewall (ATTACK)" ;
+    :d3fend-mapping-exactly :Firewall .
+
+:DS0019 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Service (ATTACK)" ;
+    :d3fend-mapping-exactly :ServiceApplicationProcess .
+
+:DS0020 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Snapshot (ATTACK)" ;
+    :d3fend-mapping-broader :File .
+
+:DS0021 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Persona (ATTACK)" ;
+    :d3fend-mapping-broader :DigitalInformationBearer .
+
+:DS0022 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "File (ATTACK)" ;
+    :d3fend-mapping-exactly :File .
+
+:DS0023 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Named Pipe (ATTACK)" ;
+    :d3fend-mapping-broader :Pipe .
+
+:DS0024 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Windows Registry (ATTACK)" ;
+    :d3fend-mapping-exactly :WindowsRegistry .
+
+:DS0025 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Cloud Service (ATTACK)" ;
+    :d3fend-mapping-narrower :Software .
+
 :DS0026 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Active Directory (ATTACK)" ;
     :d3fend-mapping-exactly :SystemConfigurationDatabase .
+
+:DS0027 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Driver (ATTACK)" ;
+    :d3fend-mapping-exactly :HardwareDriver .
+
+:DS0028 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Logon Session (ATTACK)" ;
+    :d3fend-mapping-exactly :LoginSession .
+
+:DS0029 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Network Traffic (ATTACK)" ;
+    :d3fend-mapping-exactly :NetworkTraffic .
+
+:DS0030 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Instance (ATTACK)" ;
+    :d3fend-mapping-broader :DigitalSystem .
+
+:DS0032 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Container (ATTACK)" ;
+    :d3fend-mapping-exactly :ContainerImage .
+
+:DS0033 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Network Share (ATTACK)" ;
+    :d3fend-mapping-exactly :FileShareService .
+
+:DS0034 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Volume (ATTACK)" ;
+    :d3fend-mapping-exactly :Volume .
+
+:DS0035 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Internet Scan (ATTACK)" ;
+    :d3fend-mapping-broader :DigitalInformation .
+
+:DS0036 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Group (ATTACK)" ;
+    :d3fend-mapping-exactly :UserGroup .
+
+:DS0037 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Certificate (ATTACK)" ;
+    :d3fend-mapping-exactly :Certificate .
+
+:DS0038 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Domain Name (ATTACK)" ;
+    :d3fend-mapping-exactly :DomainName .
+
+:DS0039 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Asset (ATTACK)" ;
+    :d3fend-mapping-broader :Artifact .
+
+:DS0040 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Operational Database (ATTACK)" ;
+    :d3fend-mapping-broader :Database .
+
+:DS0041 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "Application Vetting (ATTACK)" ;
+    :d3fend-mapping-exactly :CodeAnalyzer .
+
+:DS0042 a :ATTACKEnterpriseDataSource,
+        owl:NamedIndividual ;
+    rdfs:label "User Interface (ATTACK)" ;
+    :d3fend-mapping-exactly :GraphicalUserInterface .
 
 :FQDNDomainName a :DomainName,
         owl:NamedIndividual ;
