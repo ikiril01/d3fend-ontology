@@ -3797,6 +3797,18 @@ Another approach passively inspects network traffic with application protocol an
 Container images become containers at runtime and in the case of Docker containers - images become containers when they run on Docker Engine. Available for both Linux and Windows-based applications, containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.""" ;
     rdfs:seeAlso "https://schema.ocsf.io/objects/image" .
 
+:DiskImage a owl:Class ;
+    rdfs:label "Disk Image" ;
+    rdfs:subClassOf :DigitalInformationBearer, :File,
+            [ a owl:Restriction ;
+              owl:onProperty :may-contain ;
+              owl:someValuesFrom :FileSystem],
+            [ a owl:Restriction ;
+              owl:onProperty :may-contain ;
+              owl:someValuesFrom :Volume];
+    rdfs:isDefinedBy <http://dbpedia.org/resource/Disk_image>, <https://en.wikipedia.org/wiki/Disk_image> ;
+    :definition """A disk image, in computing, is a computer file containing the contents and structure of a disk volume or of an entire data storage device, such as a hard disk drive, tape drive, floppy disk, optical disc, or USB flash drive. A disk image is usually made by creating a sector-by-sector copy of the source medium, thereby perfectly replicating the structure and contents of a storage device independent of the file system. Depending on the disk image format, a disk image may span one or more computer files.""" ; .
+    
 :ContainerImageAnalysis a :ContainerImageAnalysis,
         owl:Class,
         owl:NamedIndividual ;
@@ -10754,9 +10766,6 @@ Intro to Active Learning. inovex Blog. [Link](https://www.inovex.de/de/blog/intr
     rdfs:label "File" ;
     rdfs:subClassOf :Resource,
         [ a owl:Restriction ;
-            owl:onProperty :contains ;
-            owl:someValuesFrom :FileSection ],
-        [ a owl:Restriction ;
             owl:onProperty :may-contain ;
             owl:someValuesFrom :File ],
         [ a owl:Restriction ;
@@ -12849,7 +12858,7 @@ Unlike other algorithms that explicitly model the problem, such as linear regres
             owl:someValuesFrom :KernelModule ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Kernel_(operating_system)> ;
     :definition "The kernel is a computer program that constitutes the central core of a computer's operating system. It has complete control over everything that occurs in the system. As such, it is the first program loaded on startup, and then manages the remainder of the startup, as well as input/output requests from software, translating them into data processing instructions for the central processing unit. It is also responsible for managing memory, and for managing and communicating with computing peripherals, like printers, speakers, etc. The kernel is a fundamental part of a modern computer's operating system." ;
-    rdfs:seeAlso "https://schema.ocsf.io/objects/kernel" .
+    rdfs:seeAlso "https://schema.ocsf.io/objects/kernel" . 
 
 :Kernel-basedProcessIsolation a :Kernel-basedProcessIsolation,
         owl:Class,
@@ -26863,7 +26872,7 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
 :DS0007 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Image (ATTACK)" ;
-    :d3fend-mapping-broader :SoftwarePackage .
+    :d3fend-mapping-exactly :DiskImage .
 
 :DS0008 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
