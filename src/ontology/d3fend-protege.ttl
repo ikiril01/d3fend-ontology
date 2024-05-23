@@ -2105,6 +2105,16 @@ In a more general sense, ASP includes all applications of answer sets to knowled
     rdfs:seeAlso <http://dbpedia.org/resource/Application_software>,
         <http://wordnet-rdf.princeton.edu/id/06582286-n> .
 
+:MaliciousSoftware a owl:Class ;
+    rdfs:label "Malicious Software" ;
+    skos:altLabel "Malware" ;
+    rdfs:subClassOf :Software,
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :OSAPIFunction ] ;
+    :definition "Malware (a portmanteau for malicious software) is any software intentionally designed to cause disruption to a computer, server, client, or computer network, leak private information, gain unauthorized access to information or systems, deprive access to information, or which unknowingly interferes with the user's computer security and privacy. By contrast, software that causes harm due to some deficiency is typically described as a software bug." ;
+    rdfs:seeAlso <http://dbpedia.org/resource/Malware>.
+
 :ApplicationConfiguration a owl:Class ;
     rdfs:label "Application Configuration" ;
     rdfs:subClassOf :ConfigurationResource ;
@@ -3536,6 +3546,25 @@ Cluster analysis. (n.d.). Wikipedia. [Link](https://en.wikipedia.org/wiki/Cluste
             owl:someValuesFrom :SourceCode ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Repository_(version_control)> ;
     :definition "A code repository is a form of database where code, typically source code, is stored and managed.  In revision control systems, a repository is a data structure that stores metadata for a set of files or directory structure. Depending on whether the version control system in use is distributed like (Git or Mercurial) or centralized like (Subversion, CVS, or Perforce), the whole set of information in the repository may be duplicated on every user's system or may be maintained on a single server." .
+
+:SoftwareRepository a owl:Class ;
+    rdfs:label "Software Repository" ;
+    skos:altLabel "Repo" ;
+    rdfs:subClassOf :Database,
+        [ a owl:Restriction ;
+            owl:onProperty :contains ;
+            owl:someValuesFrom :Software ] ;
+    rdfs:isDefinedBy <https://dbpedia.org/page/Software_repository> ;
+    :definition "A software repository, or repo for short, is a storage location for software packages. Often a table of contents is also stored, along with metadata. A software repository is typically managed by source control or repository managers. Package managers allow automatically installing and updating repositories (sometimes called 'packages')" .
+
+:MalwareRepository a owl:Class ;
+    rdfs:label "Malware Repository" ;
+    rdfs:subClassOf :SoftwareRepository,
+        [ a owl:Restriction ;
+            owl:onProperty :contains ;
+            owl:someValuesFrom :MaliciousSoftware ] ;
+    rdfs:isDefinedBy <https://www.cosive.com/what-is-a-malware-repository> ;
+    :definition "A malware repository is a purpose-built database or file archive used to safely and securely store malware samples. Malware repositories are used by security researchers, analysts, and reverse engineers to store and study malware and, ultimately, better understand the malware they're dealing with." .
 
 :CoefficientOfVariation a owl:Class,
         owl:NamedIndividual ;
