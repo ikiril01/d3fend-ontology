@@ -2113,7 +2113,7 @@ In a more general sense, ASP includes all applications of answer sets to knowled
             owl:onProperty :may-contain ;
             owl:someValuesFrom :OSAPIFunction ] ;
     :definition "Malware (a portmanteau for malicious software) is any software intentionally designed to cause disruption to a computer, server, client, or computer network, leak private information, gain unauthorized access to information or systems, deprive access to information, or which unknowingly interferes with the user's computer security and privacy. By contrast, software that causes harm due to some deficiency is typically described as a software bug." ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Malware>.
+    rdfs:isDefinedBy <http://dbpedia.org/resource/Malware>.
 
 :ApplicationConfiguration a owl:Class ;
     rdfs:label "Application Configuration" ;
