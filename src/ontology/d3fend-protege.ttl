@@ -3797,15 +3797,15 @@ Another approach passively inspects network traffic with application protocol an
 Container images become containers at runtime and in the case of Docker containers - images become containers when they run on Docker Engine. Available for both Linux and Windows-based applications, containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.""" ;
     rdfs:seeAlso "https://schema.ocsf.io/objects/image" .
 
-:Pod a owl
+:Pod a owl:class ;
     rdfs:label "Pod" ;
     rdfs:subClassOf :DigitalInformationBearer,
-    [ a owl:Restriction ;
-        owl:onProperty :may-contain ;
-        owl:someValuesFrom :ContainerImage],
-    [ a owl:Restriction ;
-        owl:onProperty :may-run ;
-        owl:someValuesFrom :ContainerProcess];
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :ContainerImage],
+        [ a owl:Restriction ;
+            owl:onProperty :may-run ;
+            owl:someValuesFrom :ContainerProcess];
     rdfs:isDefinedBy <https://kubernetes.io/docs/concepts/workloads/pods/>;
     :definition """A Pod (as in a pod of whales or pea pod) is a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and co-scheduled, and run in a shared context.""" ; .
 
