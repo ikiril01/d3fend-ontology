@@ -26905,7 +26905,7 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
 :DS0013 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Sensor Health (ATTACK)" ;
-    :d3fend-mapping-broader :Log .
+    :d3fend-mapping-exactly :EventLog .
 
 :DS0014 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
