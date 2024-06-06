@@ -15589,6 +15589,15 @@ NOTE: not synonymous with data link as a data link can be over a telecommunicati
     :definition "In Unix-like computer operating systems, a pipeline is a mechanism for inter-process communication using message passing.  In the strictest sense, a pipe is a single segment of a pipeline, allowing one process to pass information forward to another.  Network pipes allow processes on different hosts to interact." ;
     rdfs:seeAlso <http://dbpedia.org/resource/Pipeline_(Unix)> .
 
+:NamedPipe a owl:Class ;
+    rdfs:label "Named Pipe" ;
+    rdfs:subClassOf :Pipe ;
+    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Named_pipe> ;
+    :definition """In Unix-like computer operating systems, a named pipe makes use of the filesystem. It is explicitly created using mkfifo() or mknod(), and two separate processes can access the pipe by name — one process can open it as a reader, and the other as a writer. 
+    
+In Windows operating systems, a named pipe can be accessed much like a file. Win32 SDK functions CreateFile, ReadFile, WriteFile and CloseHandle open, read from, write to, and close a pipe, respectively. Named pipes cannot be created as files within a normal filesystem, unlike in Unix. Also unlike their Unix counterparts, named pipes are volatile (removed after the last reference to them is closed).""" ;
+    .
+
 :Pix2Pix a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Pix2Pix" ;
