@@ -17722,6 +17722,33 @@ If the threshold for detecting a stack anomaly is low, it may not detect a retur
     rdfs:isDefinedBy <http://dbpedia.org/resource/Shim_(computing)> ;
     :definition "In computer programming, a shim is a small library that transparently intercepts API calls and changes the arguments passed, handles the operation itself, or redirects the operation elsewhere. Shims can be used to support an old API in a newer environment, or a new API in an older environment. Shims can also be used for running programs on different software platforms than those for which they were developed." .
 
+:Snapshot a owl:Class ;
+    rdfs:label "Snapshot" ;
+    rdfs:subClassOf :DigitalInformationBearer,
+            [ a owl:Restriction ;
+              owl:onProperty :may-contain ;
+              owl:someValuesFrom :FileSystem];
+    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Snapshot_(computer_storage)> ;
+    :definition "A snapshot is the state of a system at a particular point in time" .
+
+:VMSnapshot a owl:Class ;
+    rdfs:label "VM Snapshot" ;
+    rdfs:subClassOf :Snapshot,
+            [ a owl:Restriction ;
+              owl:onProperty :may-contain ;
+              owl:someValuesFrom :DiskImage];
+    rdfs:isDefinedBy <https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/snapshots.html> ;
+    :definition "A VM snapshot captures the state of a Virtual Machine at a particular point in time, which may include a copy of its disk as well as the contents of its memory." .
+
+:VolumeSnapshot a owl:Class ;
+    rdfs:label "Volume Snapshot" ;
+    rdfs:subClassOf :Snapshot,
+            [ a owl:Restriction ;
+              owl:onProperty :may-contain ;
+              owl:someValuesFrom :Volume];
+    rdfs:isDefinedBy <https://kubernetes.io/docs/concepts/storage/volume-snapshots/> ;
+    :definition "A volume snapshot capture the state of a volume on a storage system at a particular point in time." .
+
 :ShimDatabase a owl:Class ;
     rdfs:label "Shim Database" ;
     rdfs:subClassOf :ApplicationConfigurationDatabase ;
@@ -26975,7 +27002,7 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
 :DS0020 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Snapshot (ATTACK)" ;
-    :d3fend-mapping-broader :File .
+    :d3fend-mapping-broader :VolumeSnapshot .
 
 :DS0021 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
