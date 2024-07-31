@@ -2321,6 +2321,12 @@ ANN Classification. [Link](http://uc-r.github.io/ann_classification).""" .
     :synonym "Asset Discovery",
         "Asset Inventorying" .
 
+:AssetMetadata a owl:Class ;
+    rdfs:label "Asset Metadata" ;
+    rdfs:subClassOf :Metadata ;
+    :definition "Metadata about an asset or device found within a network.  For example, asset type, IP address, serial number, firmware version, and physical location.";
+    rdfs:seeAlso <https://qualysguard.qg2.apps.qualys.com/ics/help/assets/viewing_asset_details.htm>.
+
 :AssetVulnerabilityEnumeration a :AssetVulnerabilityEnumeration,
         owl:Class,
         owl:NamedIndividual ;
@@ -27115,7 +27121,7 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
 :DS0039 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Asset (ATTACK)" ;
-    :d3fend-mapping-broader :Database .
+    :d3fend-mapping-broader :AssetMetadata .
 
 :DS0040 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
