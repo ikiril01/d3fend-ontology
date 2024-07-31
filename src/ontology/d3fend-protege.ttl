@@ -9922,6 +9922,23 @@ O'Reilly Media. (n.d.). Chapter 7. Machine Learning and Security: Protecting Sys
     rdfs:isDefinedBy <http://dbpedia.org/resource/Directory_service> ;
     :definition "In computing, directory service or name service maps the names of network resources to their respective network addresses. It is a shared information infrastructure for locating, managing, administering and organizing everyday items and network resources, which can include volumes, folders, files, printers, users, groups, devices, telephone numbers and other objects. A directory service is a critical component of a network operating system. A directory server or name server is a server which provides such a service. Each resource on the network is considered an object by the directory server. Information about a particular resource is stored as a collection of attributes associated with that resource or object." .
 
+:DiscoveryNetworkTraffic a owl:Class ;
+    rdfs:label "Discovery Network Traffic" ;
+    rdfs:subClassOf :NetworkTraffic ;
+    :definition "Discovery network traffic is traffic associated with identifying and catologing devices on a network. This includes using features of standard transport layer protocols, such as TCP SYN packets." .
+
+:InternetDiscoveryTraffic a owl:Class ;
+    rdfs:label "Internet Discovery Traffic" ;
+    rdfs:subClassOf :DiscoveryNetworkTraffic,
+        :InternetNetworkTraffic ;
+    :definition "Internet discovery network traffic is traffic related to network device identification that crosses a boundary between networks." .
+
+:IntranetDiscoveryTraffic a owl:Class ;
+    rdfs:label "Intranet DiscoveryTraffic" ;
+    rdfs:subClassOf :DiscoveryNetworkTraffic,
+        :IntranetNetworkTraffic ;
+    :definition "Intranet discovery traffic is traffic related to network device identification that does not cross a given network's boundaries." .
+
 :DiscoveryTechnique a owl:Class ;
     rdfs:label "Discovery Technique" ;
     rdfs:subClassOf :ATTACKEnterpriseTechnique,
@@ -27078,7 +27095,7 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
 :DS0035 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Internet Scan (ATTACK)" ;
-    :d3fend-mapping-broader :InternetNetworkTraffic .
+    :d3fend-mapping-exactly :DiscoveryNetworkTraffic .
 
 :DS0036 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
