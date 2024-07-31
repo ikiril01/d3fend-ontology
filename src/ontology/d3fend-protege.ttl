@@ -15426,6 +15426,17 @@ Log integrity is verified by log auditors. Auditors make use of log proofs are u
     rdfs:subClassOf :Database ;
     :definition "A password database is a database that holds passwords for user accounts and is usually encrypted (i.e.., the passwords are hashed). Password databases are found supporting system services (such as SAM) or part of user applications such as password managers." .
 
+:ProcessDatabase a owl:Class ;
+    rdfs:label "Process Database" ;
+    rdfs:subClassOf :Database ;
+    :definition "A process database is a database for storing industrial process data and events. Process databases are used for real-time process monitoring, control, and data logging in industrial applications." .
+
+:HistorianDatabase a owl:Class ;
+    rdfs:label "Historian Database" ;
+    rdfs:subClassOf :Database ;
+    :definition "A historian database is a database that is designed to capture and store large amounts of time-series data from multiple sources. Thay can be used for collecting, storing, and managing data from various industrial sources." ;
+    rdfs:seeAlso <https://oden.io/glossary/data-historian/> .
+
 :PasswordFile a owl:Class ;
     rdfs:label "Password File" ;
     rdfs:subClassOf :File,
@@ -27126,7 +27137,8 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
 :DS0040 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Operational Database (ATTACK)" ;
-    :d3fend-mapping-broader :Database .
+    :d3fend-mapping-narrower :HistorianDatabase ;
+    :d3fend-mapping-narrower :ProcessDatabase .
 
 :DS0041 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
