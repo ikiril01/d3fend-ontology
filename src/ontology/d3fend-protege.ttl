@@ -2105,16 +2105,6 @@ In a more general sense, ASP includes all applications of answer sets to knowled
     rdfs:seeAlso <http://dbpedia.org/resource/Application_software>,
         <http://wordnet-rdf.princeton.edu/id/06582286-n> .
 
-:MaliciousSoftware a owl:Class ;
-    rdfs:label "Malicious Software" ;
-    skos:altLabel "Malware" ;
-    rdfs:subClassOf :Software,
-        [ a owl:Restriction ;
-            owl:onProperty :may-contain ;
-            owl:someValuesFrom :OSAPIFunction ] ;
-    :definition "Malware (a portmanteau for malicious software) is any software intentionally designed to cause disruption to a computer, server, client, or computer network, leak private information, gain unauthorized access to information or systems, deprive access to information, or which unknowingly interferes with the user's computer security and privacy. By contrast, software that causes harm due to some deficiency is typically described as a software bug." ;
-    rdfs:isDefinedBy <http://dbpedia.org/resource/Malware>.
-
 :ApplicationConfiguration a owl:Class ;
     rdfs:label "Application Configuration" ;
     rdfs:subClassOf :ConfigurationResource ;
@@ -2324,8 +2314,8 @@ ANN Classification. [Link](http://uc-r.github.io/ann_classification).""" .
 :AssetMetadata a owl:Class ;
     rdfs:label "Asset Metadata" ;
     rdfs:subClassOf :Metadata ;
-    :definition "Metadata about an asset or device found within a network.  For example, asset type, IP address, serial number, firmware version, and physical location.";
-    rdfs:seeAlso <https://qualysguard.qg2.apps.qualys.com/ics/help/assets/viewing_asset_details.htm>.
+    :definition "Metadata about an asset or device found within a network.  For example, asset type, IP address, serial number, firmware version, and physical location." ;
+    rdfs:seeAlso <https://qualysguard.qg2.apps.qualys.com/ics/help/assets/viewing_asset_details.htm> .
 
 :AssetVulnerabilityEnumeration a :AssetVulnerabilityEnumeration,
         owl:Class,
@@ -3553,25 +3543,6 @@ Cluster analysis. (n.d.). Wikipedia. [Link](https://en.wikipedia.org/wiki/Cluste
     rdfs:isDefinedBy <http://dbpedia.org/resource/Repository_(version_control)> ;
     :definition "A code repository is a form of database where code, typically source code, is stored and managed.  In revision control systems, a repository is a data structure that stores metadata for a set of files or directory structure. Depending on whether the version control system in use is distributed like (Git or Mercurial) or centralized like (Subversion, CVS, or Perforce), the whole set of information in the repository may be duplicated on every user's system or may be maintained on a single server." .
 
-:SoftwareRepository a owl:Class ;
-    rdfs:label "Software Repository" ;
-    skos:altLabel "Repo" ;
-    rdfs:subClassOf :Database,
-        [ a owl:Restriction ;
-            owl:onProperty :contains ;
-            owl:someValuesFrom :Software ] ;
-    rdfs:isDefinedBy <https://dbpedia.org/page/Software_repository> ;
-    :definition "A software repository, or repo for short, is a storage location for software packages. Often a table of contents is also stored, along with metadata. A software repository is typically managed by source control or repository managers. Package managers allow automatically installing and updating repositories (sometimes called 'packages')" .
-
-:MalwareRepository a owl:Class ;
-    rdfs:label "Malware Repository" ;
-    rdfs:subClassOf :SoftwareRepository,
-        [ a owl:Restriction ;
-            owl:onProperty :contains ;
-            owl:someValuesFrom :MaliciousSoftware ] ;
-    rdfs:isDefinedBy <https://www.cosive.com/what-is-a-malware-repository> ;
-    :definition "A malware repository is a purpose-built database or file archive used to safely and securely store malware samples. Malware repositories are used by security researchers, analysts, and reverse engineers to store and study malware and, ultimately, better understand the malware they're dealing with." .
-
 :CoefficientOfVariation a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Coefficient of Variation" ;
@@ -3802,30 +3773,6 @@ Another approach passively inspects network traffic with application protocol an
 
 Container images become containers at runtime and in the case of Docker containers - images become containers when they run on Docker Engine. Available for both Linux and Windows-based applications, containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.""" ;
     rdfs:seeAlso "https://schema.ocsf.io/objects/image" .
-
-:Pod a owl:class ;
-    rdfs:label "Pod" ;
-    rdfs:subClassOf :DigitalInformationBearer,
-        [ a owl:Restriction ;
-            owl:onProperty :may-contain ;
-            owl:someValuesFrom :ContainerImage],
-        [ a owl:Restriction ;
-            owl:onProperty :may-run ;
-            owl:someValuesFrom :ContainerProcess];
-    rdfs:isDefinedBy <https://kubernetes.io/docs/concepts/workloads/pods/>;
-    :definition """A Pod (as in a pod of whales or pea pod) is a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and co-scheduled, and run in a shared context.""" ; .
-
-:DiskImage a owl:Class ;
-    rdfs:label "Disk Image" ;
-    rdfs:subClassOf :DigitalInformationBearer, :File,
-            [ a owl:Restriction ;
-              owl:onProperty :may-contain ;
-              owl:someValuesFrom :FileSystem],
-            [ a owl:Restriction ;
-              owl:onProperty :may-contain ;
-              owl:someValuesFrom :Volume];
-    rdfs:isDefinedBy <http://dbpedia.org/resource/Disk_image>, <https://en.wikipedia.org/wiki/Disk_image> ;
-    :definition """A disk image, in computing, is a computer file containing the contents and structure of a disk volume or of an entire data storage device, such as a hard disk drive, tape drive, floppy disk, optical disc, or USB flash drive. A disk image is usually made by creating a sector-by-sector copy of the source medium, thereby perfectly replicating the structure and contents of a storage device independent of the file system. Depending on the disk image format, a disk image may span one or more computer files.""" ; .
 
 :ContainerImageAnalysis a :ContainerImageAnalysis,
         owl:Class,
@@ -9933,18 +9880,6 @@ O'Reilly Media. (n.d.). Chapter 7. Machine Learning and Security: Protecting Sys
     rdfs:subClassOf :NetworkTraffic ;
     :definition "Discovery network traffic is traffic associated with identifying and catologing devices on a network. This includes using features of standard transport layer protocols, such as TCP SYN packets." .
 
-:InternetDiscoveryTraffic a owl:Class ;
-    rdfs:label "Internet Discovery Traffic" ;
-    rdfs:subClassOf :DiscoveryNetworkTraffic,
-        :InternetNetworkTraffic ;
-    :definition "Internet discovery network traffic is traffic related to network device identification that crosses a boundary between networks." .
-
-:IntranetDiscoveryTraffic a owl:Class ;
-    rdfs:label "Intranet DiscoveryTraffic" ;
-    rdfs:subClassOf :DiscoveryNetworkTraffic,
-        :IntranetNetworkTraffic ;
-    :definition "Intranet discovery traffic is traffic related to network device identification that does not cross a given network's boundaries." .
-
 :DiscoveryTechnique a owl:Class ;
     rdfs:label "Discovery Technique" ;
     rdfs:subClassOf :ATTACKEnterpriseTechnique,
@@ -9973,6 +9908,20 @@ Wikipedia. (n.d.). Multivariate statistics. [Link](https://en.wikipedia.org/wiki
     :d3fend-id "D3-DENCR" ;
     :definition "Encrypting a hard disk partition to prevent cleartext access to a file system." ;
     :kb-reference :Reference-LUKS1On-DiskFormatSpecificationVersion1.2.3 .
+
+:DiskImage a owl:Class ;
+    rdfs:label "Disk Image" ;
+    rdfs:subClassOf :DigitalInformationBearer,
+        :File,
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :FileSystem ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :Volume ] ;
+    rdfs:isDefinedBy <http://dbpedia.org/resource/Disk_image>,
+        <https://en.wikipedia.org/wiki/Disk_image> ;
+    :definition "A disk image, in computing, is a computer file containing the contents and structure of a disk volume or of an entire data storage device, such as a hard disk drive, tape drive, floppy disk, optical disc, or USB flash drive. A disk image is usually made by creating a sector-by-sector copy of the source medium, thereby perfectly replicating the structure and contents of a storage device independent of the file system. Depending on the disk image format, a disk image may span one or more computer files." .
 
 :DisplayAdapter a owl:Class ;
     rdfs:label "Display Adapter" ;
@@ -10448,6 +10397,14 @@ Endpoints are configured to periodically generate and transmit a secure heartbea
     rdfs:subClassOf :CyberSensor ;
     :definition "A sensor application installed on a endpoint (platform) to collect information on platform components." ;
     rdfs:seeAlso "d3f:Platform" .
+
+:EndpointSensorTelemetryLog a owl:Class ;
+    rdfs:label "Endpoint Sensor Telemetry Log" ;
+    rdfs:subClassOf :SoftwareTelemetryLog,
+        [ a owl:Restriction ;
+            owl:onProperty :records ;
+            owl:someValuesFrom :EndpointSensor ] ;
+    :definition "A log of telemetry generated by an endpoint sensor, including system status, errors, or other notable functional activity." .
 
 :EnsembleLearning a owl:Class,
         owl:NamedIndividual ;
@@ -11746,6 +11703,12 @@ Wikipedia. (n.d.). Clustering high-dimensional data. [Link](https://en.wikipedia
     rdfs:label "Histogramming" ;
     rdfs:subClassOf :Summarizing .
 
+:HistorianDatabase a owl:Class ;
+    rdfs:label "Historian Database" ;
+    rdfs:subClassOf :Database ;
+    :definition "A historian database is a database that is designed to capture and store large amounts of time-series data from multiple sources. Thay can be used for collecting, storing, and managing data from various industrial sources." ;
+    rdfs:seeAlso <https://oden.io/glossary/data-historian/> .
+
 :HomogenousTransferLearning a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Homogenous Transfer Learning" ;
@@ -12366,6 +12329,12 @@ If an attacker manages to stop the processes used to log an attack without setti
     rdfs:subClassOf :TechniqueReference ;
     :pref-label "Internet Article" .
 
+:InternetDiscoveryTraffic a owl:Class ;
+    rdfs:label "Internet Discovery Traffic" ;
+    rdfs:subClassOf :DiscoveryNetworkTraffic,
+        :InternetNetworkTraffic ;
+    :definition "Internet discovery network traffic is traffic related to network device identification that crosses a boundary between networks." .
+
 :InternetDNSLookup a owl:Class ;
     rdfs:label "Internet DNS Lookup" ;
     rdfs:subClassOf :DNSLookup ;
@@ -12424,6 +12393,12 @@ Wikipedia. (n.d.). Interval estimation. [Link](https://en.wikipedia.org/wiki/Int
         :IntranetNetworkTraffic ;
     :definition "Intranet administrative network traffic is administrative network traffic that does not cross a given network's boundaries and uses a standard administrative protocol." ;
     rdfs:seeAlso <http://dbpedia.org/resource/Intranet> .
+
+:IntranetDiscoveryTraffic a owl:Class ;
+    rdfs:label "Intranet DiscoveryTraffic" ;
+    rdfs:subClassOf :DiscoveryNetworkTraffic,
+        :IntranetNetworkTraffic ;
+    :definition "Intranet discovery traffic is traffic related to network device identification that does not cross a given network's boundaries." .
 
 :IntranetDNSLookup a owl:Class ;
     rdfs:label "Intranet DNS Lookup" ;
@@ -12896,7 +12871,7 @@ Unlike other algorithms that explicitly model the problem, such as linear regres
             owl:someValuesFrom :KernelModule ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Kernel_(operating_system)> ;
     :definition "The kernel is a computer program that constitutes the central core of a computer's operating system. It has complete control over everything that occurs in the system. As such, it is the first program loaded on startup, and then manages the remainder of the startup, as well as input/output requests from software, translating them into data processing instructions for the central processing unit. It is also responsible for managing memory, and for managing and communicating with computing peripherals, like printers, speakers, etc. The kernel is a fundamental part of a modern computer's operating system." ;
-    rdfs:seeAlso "https://schema.ocsf.io/objects/kernel" . 
+    rdfs:seeAlso "https://schema.ocsf.io/objects/kernel" .
 
 :Kernel-basedProcessIsolation a :Kernel-basedProcessIsolation,
         owl:Class,
@@ -13595,6 +13570,25 @@ Machine learning." Wikipedia. [Link](https://en.wikipedia.org/wiki/Machine_learn
     rdfs:seeAlso <http://dbpedia.org/resource/Email>,
         <http://dbpedia.org/resource/Message_transfer_agent> .
 
+:MaliciousSoftware a owl:Class ;
+    rdfs:label "Malicious Software" ;
+    skos:altLabel "Malware" ;
+    rdfs:subClassOf :Software,
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :OSAPIFunction ] ;
+    rdfs:isDefinedBy <http://dbpedia.org/resource/Malware> ;
+    :definition "Malware (a portmanteau for malicious software) is any software intentionally designed to cause disruption to a computer, server, client, or computer network, leak private information, gain unauthorized access to information or systems, deprive access to information, or which unknowingly interferes with the user's computer security and privacy. By contrast, software that causes harm due to some deficiency is typically described as a software bug." .
+
+:MalwareRepository a owl:Class ;
+    rdfs:label "Malware Repository" ;
+    rdfs:subClassOf :SoftwareRepository,
+        [ a owl:Restriction ;
+            owl:onProperty :contains ;
+            owl:someValuesFrom :MaliciousSoftware ] ;
+    rdfs:isDefinedBy <https://www.cosive.com/what-is-a-malware-repository> ;
+    :definition "A malware repository is a purpose-built database or file archive used to safely and securely store malware samples. Malware repositories are used by security researchers, analysts, and reverse engineers to store and study malware and, ultimately, better understand the malware they're dealing with." .
+
 :MandatoryAccessControl a :MandatoryAccessControl,
         owl:Class,
         owl:NamedIndividual ;
@@ -14129,6 +14123,14 @@ Wikipedia. (n.d.). Multivariate statistics. [Link](https://en.wikipedia.org/wiki
     :definition "The Naïve Bayes classifier is a supervised machine learning algorithm, which is used for classification tasks, like text classification. It is also part of a family of generative learning algorithms, meaning that it seeks to model the distribution of inputs of a given class or category." ;
     :kb-article """## References
 Naive Bayes. IBM. [Link](https://www.ibm.com/topics/naive-bayes?mhsrc=ibmsearch_a&mhq=naive%20bayes).""" .
+
+:NamedPipe a owl:Class ;
+    rdfs:label "Named Pipe" ;
+    rdfs:subClassOf :Pipe ;
+    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Named_pipe> ;
+    :definition """In Unix-like computer operating systems, a named pipe makes use of the filesystem. It is explicitly created using mkfifo() or mknod(), and two separate processes can access the pipe by name — one process can open it as a reader, and the other as a writer. 
+    
+In Windows operating systems, a named pipe can be accessed much like a file. Win32 SDK functions CreateFile, ReadFile, WriteFile and CloseHandle open, read from, write to, and close a pipe, respectively. Named pipes cannot be created as files within a normal filesystem, unlike in Unix. Also unlike their Unix counterparts, named pipes are volatile (removed after the last reference to them is closed).""" .
 
 :Network a owl:Class ;
     rdfs:label "Network" ;
@@ -15261,20 +15263,6 @@ The OWL languages are characterized by formal semantics. They are built upon the
     :definition "A log of all the network packet data captured from a network by a network sensor (i.e., packet analyzer)," ;
     rdfs:seeAlso <http://dbpedia.org/resource/Packet_analyzer> .
 
-:SoftwareTelemetryLog a owl:Class ;
-    rdfs:label "Software Telemetry Log" ;
-    rdfs:subClassOf :Log;
-    :definition "A log of software telemetry, where this telemetry is used to gather data on the use and performance of applications and application components, e.g. how often certain features are used, measurements of start-up time and processing time, hardware, application crashes, and general usage statistics and/or user behavior." ;
-    rdfs:seeAlso <https://en.wikipedia.org/wiki/Telemetry#Software> .
-
-:EndpointSensorTelemetryLog a owl:Class ;
-    rdfs:label "Endpoint Sensor Telemetry Log" ;
-    rdfs:subClassOf :SoftwareTelemetryLog,
-        [ a owl:Restriction ;
-            owl:onProperty :records ;
-            owl:someValuesFrom :EndpointSensor ] ;
-    :definition "A log of telemetry generated by an endpoint sensor, including system status, errors, or other notable functional activity."; .
-
 :Page a owl:Class ;
     rdfs:label "Page" ;
     rdfs:subClassOf :MemoryBlock ;
@@ -15425,17 +15413,6 @@ Log integrity is verified by log auditors. Auditors make use of log proofs are u
     rdfs:label "Password Database" ;
     rdfs:subClassOf :Database ;
     :definition "A password database is a database that holds passwords for user accounts and is usually encrypted (i.e.., the passwords are hashed). Password databases are found supporting system services (such as SAM) or part of user applications such as password managers." .
-
-:ProcessDatabase a owl:Class ;
-    rdfs:label "Process Database" ;
-    rdfs:subClassOf :Database ;
-    :definition "A process database is a database for storing industrial process data and events. Process databases are used for real-time process monitoring, control, and data logging in industrial applications." .
-
-:HistorianDatabase a owl:Class ;
-    rdfs:label "Historian Database" ;
-    rdfs:subClassOf :Database ;
-    :definition "A historian database is a database that is designed to capture and store large amounts of time-series data from multiple sources. Thay can be used for collecting, storing, and managing data from various industrial sources." ;
-    rdfs:seeAlso <https://oden.io/glossary/data-historian/> .
 
 :PasswordFile a owl:Class ;
     rdfs:label "Password File" ;
@@ -15636,15 +15613,6 @@ NOTE: not synonymous with data link as a data link can be over a telecommunicati
     rdfs:isDefinedBy <http://www.linfo.org/pipe.html> ;
     :definition "In Unix-like computer operating systems, a pipeline is a mechanism for inter-process communication using message passing.  In the strictest sense, a pipe is a single segment of a pipeline, allowing one process to pass information forward to another.  Network pipes allow processes on different hosts to interact." ;
     rdfs:seeAlso <http://dbpedia.org/resource/Pipeline_(Unix)> .
-
-:NamedPipe a owl:Class ;
-    rdfs:label "Named Pipe" ;
-    rdfs:subClassOf :Pipe ;
-    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Named_pipe> ;
-    :definition """In Unix-like computer operating systems, a named pipe makes use of the filesystem. It is explicitly created using mkfifo() or mknod(), and two separate processes can access the pipe by name — one process can open it as a reader, and the other as a writer. 
-    
-In Windows operating systems, a named pipe can be accessed much like a file. Win32 SDK functions CreateFile, ReadFile, WriteFile and CloseHandle open, read from, write to, and close a pipe, respectively. Named pipes cannot be created as files within a normal filesystem, unlike in Unix. Also unlike their Unix counterparts, named pipes are volatile (removed after the last reference to them is closed).""" ;
-    .
 
 :Pix2Pix a owl:Class,
         owl:NamedIndividual ;
@@ -16023,6 +15991,11 @@ False negatives can occur via alteration of the verification logic or source of 
         :Reference-SystemAndMethodForValidatingIn-memoryIntegrityOfExecutableFilesToIdentifyMaliciousActivity_EndgameInc,
         :Reference-TamperProofMutatingSoftware_ARXANTECHNOLOGIESInc,
         :Reference-ThreatDetectionThroughTheAccumulatedDetectionOfThreatCharacteristics_SophosLtd .
+
+:ProcessDatabase a owl:Class ;
+    rdfs:label "Process Database" ;
+    rdfs:subClassOf :Database ;
+    :definition "A process database is a database for storing industrial process data and events. Process databases are used for real-time process monitoring, control, and data logging in industrial applications." .
 
 :ProcessDataSegment a owl:Class ;
     rdfs:label "Process Data Segment" ;
@@ -17756,33 +17729,6 @@ If the threshold for detecting a stack anomaly is low, it may not detect a retur
     rdfs:isDefinedBy <http://dbpedia.org/resource/Shim_(computing)> ;
     :definition "In computer programming, a shim is a small library that transparently intercepts API calls and changes the arguments passed, handles the operation itself, or redirects the operation elsewhere. Shims can be used to support an old API in a newer environment, or a new API in an older environment. Shims can also be used for running programs on different software platforms than those for which they were developed." .
 
-:Snapshot a owl:Class ;
-    rdfs:label "Snapshot" ;
-    rdfs:subClassOf :DigitalInformationBearer,
-            [ a owl:Restriction ;
-              owl:onProperty :may-contain ;
-              owl:someValuesFrom :FileSystem];
-    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Snapshot_(computer_storage)> ;
-    :definition "A snapshot is the state of a system at a particular point in time" .
-
-:VMSnapshot a owl:Class ;
-    rdfs:label "VM Snapshot" ;
-    rdfs:subClassOf :Snapshot,
-            [ a owl:Restriction ;
-              owl:onProperty :may-contain ;
-              owl:someValuesFrom :DiskImage];
-    rdfs:isDefinedBy <https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/snapshots.html> ;
-    :definition "A VM snapshot captures the state of a Virtual Machine at a particular point in time, which may include a copy of its disk as well as the contents of its memory." .
-
-:VolumeSnapshot a owl:Class ;
-    rdfs:label "Volume Snapshot" ;
-    rdfs:subClassOf :Snapshot,
-            [ a owl:Restriction ;
-              owl:onProperty :may-contain ;
-              owl:someValuesFrom :Volume];
-    rdfs:isDefinedBy <https://kubernetes.io/docs/concepts/storage/volume-snapshots/> ;
-    :definition "A volume snapshot capture the state of a volume on a storage system at a particular point in time." .
-
 :ShimDatabase a owl:Class ;
     rdfs:label "Shim Database" ;
     rdfs:subClassOf :ApplicationConfigurationDatabase ;
@@ -17838,6 +17784,15 @@ Wikipedia. (n.d.). Skewness. [Link](https://en.wikipedia.org/wiki/Skewness)""" .
         :UnixLink ;
     :definition "A slow symbolic link is any symbolic link on a Unix filesystem that is not a fast symbolic link; slow symlink is thus retroactively termed from fast symlink.  Slow symbolic links stored the symbolic link information as data in regular files." ;
     rdfs:seeAlso <http://dbpedia.org/resource/Symbolic_link#Storage_of_symbolic_links> .
+
+:Snapshot a owl:Class ;
+    rdfs:label "Snapshot" ;
+    rdfs:subClassOf :DigitalInformationBearer,
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :FileSystem ] ;
+    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Snapshot_(computer_storage)> ;
+    :definition "A snapshot is the state of a system at a particular point in time" .
 
 :Software a owl:Class ;
     rdfs:label "Software" ;
@@ -17945,10 +17900,26 @@ Application-layer discovery:
     skos:altLabel "SaaP" ;
     rdfs:subClassOf :Product .
 
+:SoftwareRepository a owl:Class ;
+    rdfs:label "Software Repository" ;
+    skos:altLabel "Repo" ;
+    rdfs:subClassOf :Database,
+        [ a owl:Restriction ;
+            owl:onProperty :contains ;
+            owl:someValuesFrom :Software ] ;
+    rdfs:isDefinedBy <https://dbpedia.org/page/Software_repository> ;
+    :definition "A software repository, or repo for short, is a storage location for software packages. Often a table of contents is also stored, along with metadata. A software repository is typically managed by source control or repository managers. Package managers allow automatically installing and updating repositories (sometimes called 'packages')" .
+
 :SoftwareService a owl:Class ;
     rdfs:label "Software Service" ;
     skos:altLabel "SaaS" ;
     rdfs:subClassOf :Service .
+
+:SoftwareTelemetryLog a owl:Class ;
+    rdfs:label "Software Telemetry Log" ;
+    rdfs:subClassOf :Log ;
+    :definition "A log of software telemetry, where this telemetry is used to gather data on the use and performance of applications and application components, e.g. how often certain features are used, measurements of start-up time and processing time, hardware, application crashes, and general usage statistics and/or user behavior." ;
+    rdfs:seeAlso <https://en.wikipedia.org/wiki/Telemetry#Software> .
 
 :SoftwareUpdate a owl:Class,
         owl:NamedIndividual,
@@ -26145,8 +26116,9 @@ Geolocation data for each user logon attempt is collected and used to create a b
 
 :UserProfile a owl:Class ;
     rdfs:label "User Profile" ;
-    rdfs:subClassOf :DigitalInformationBearer;
-    rdfs:isDefinedBy <http://dbpedia.org/resource/User_profile>, <https://en.wikipedia.org/wiki/User_profile> ;
+    rdfs:subClassOf :DigitalInformationBearer ;
+    rdfs:isDefinedBy <http://dbpedia.org/resource/User_profile>,
+        <https://en.wikipedia.org/wiki/User_profile> ;
     :definition "A user profile is a collection of settings and information associated with a user. It contains critical information that is used to identify an individual, such as their name, age, portrait photograph and individual characteristics such as knowledge or expertise. " .
 
 :UserSessionInitConfigAnalysis a owl:Class,
@@ -26275,6 +26247,15 @@ Intro to Active Learning. inovex Blog.  [Link](https://www.inovex.de/de/blog/int
     :definition "Virtual memory is a memory management technique where secondary memory can be used as if it were a part of the main memory. Virtual memory uses hardware and software to enable a computer to compensate for physical memory shortages" ;
     rdfs:seeAlso "https://dbpedia.org/page/Virtual_memory" .
 
+:VMSnapshot a owl:Class ;
+    rdfs:label "VM Snapshot" ;
+    rdfs:subClassOf :Snapshot,
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :DiskImage ] ;
+    rdfs:isDefinedBy <https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/snapshots.html> ;
+    :definition "A VM snapshot captures the state of a Virtual Machine at a particular point in time, which may include a copy of its disk as well as the contents of its memory." .
+
 :Volume a owl:Class ;
     rdfs:label "Volume" ;
     skos:altLabel "Drive Volume",
@@ -26288,6 +26269,15 @@ Intro to Active Learning. inovex Blog.  [Link](https://www.inovex.de/de/blog/int
     rdfs:subClassOf :BootRecord ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Volume_boot_record> ;
     :definition "A volume boot record (VBR) (also known as a volume boot sector, a partition boot record or a partition boot sector) is a type of boot sector introduced by the IBM Personal Computer. It may be found on a partitioned data storage device, such as a hard disk, or an unpartitioned device, such as a floppy disk, and contains machine code for bootstrapping programs (usually, but not necessarily, operating systems) stored in other parts of the device. On non-partitioned storage devices, it is the first sector of the device. On partitioned devices, it is the first sector of an individual partition on the device, with the first sector of the entire device being a Master Boot Record (MBR) containing the partition table." .
+
+:VolumeSnapshot a owl:Class ;
+    rdfs:label "Volume Snapshot" ;
+    rdfs:subClassOf :Snapshot,
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :Volume ] ;
+    rdfs:isDefinedBy <https://kubernetes.io/docs/concepts/storage/volume-snapshots/> ;
+    :definition "A volume snapshot capture the state of a volume on a storage system at a particular point in time." .
 
 :Voting a owl:Class,
         owl:NamedIndividual ;
@@ -27137,8 +27127,8 @@ Wikipedia. (n.d.). Central tendency. [Link](https://en.wikipedia.org/wiki/Centra
 :DS0040 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
     rdfs:label "Operational Database (ATTACK)" ;
-    :d3fend-mapping-narrower :HistorianDatabase ;
-    :d3fend-mapping-narrower :ProcessDatabase .
+    :d3fend-mapping-narrower :HistorianDatabase,
+        :ProcessDatabase .
 
 :DS0041 a :ATTACKEnterpriseDataSource,
         owl:NamedIndividual ;
@@ -31698,6 +31688,18 @@ With keystroke dynamics the biometric template used to identify an individual is
             :Skewness ) .
 
 ### Annotations
+
+:Pod a owl:class ;
+    rdfs:label "Pod" ;
+    rdfs:subClassOf :DigitalInformationBearer,
+        [ a owl:Restriction ;
+            owl:onProperty :may-contain ;
+            owl:someValuesFrom :ContainerImage ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-run ;
+            owl:someValuesFrom :ContainerProcess ] ;
+    rdfs:isDefinedBy <https://kubernetes.io/docs/concepts/workloads/pods/> ;
+    :definition "A Pod (as in a pod of whales or pea pod) is a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and co-scheduled, and run in a shared context." .
 
 <wptmp:entity#Reference%20-%20%20CAR-2016-04-004:%20Successful%20Local%20Account%20Login> :kb-organization "MITRE/NSA" .
 
