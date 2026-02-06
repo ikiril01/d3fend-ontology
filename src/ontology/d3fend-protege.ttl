@@ -543,6 +543,11 @@ Moving forward different distinctions of kinds of has-part (contains) relationsh
     :definition "x has_sender y: An agent y is the sender and encoder of the information contained in communication x." ;
     rdfs:seeAlso <http://wordnet-rdf.princeton.edu/id/10598214-n> .
 
+:has-state a owl:ObjectProperty ;
+    rdfs:label "has-state" ;
+    rdfs:subPropertyOf :associated-with ;
+    :definition "x has-state y: The entity x bears or exemplifies the state y at some temporal instant or interval, where y characterizes the specific values of x's configuration parameters, operational conditions, security-relevant properties, or other qualities that define x's condition at that time." .
+
 :has-weakness a owl:ObjectProperty ;
     rdfs:label "has-weakness" ;
     rdfs:subPropertyOf :may-have-weakness ;
@@ -4111,7 +4116,10 @@ Hardening an application's configuration involves analyzing not only the applica
     rdfs:subClassOf :DigitalEvent,
         [ a owl:Restriction ;
             owl:onProperty :has-participant ;
-            owl:someValuesFrom :Application ] ;
+            owl:someValuesFrom :Application ],
+        [ a owl:Restriction ;
+            owl:onProperty :has-participant ;
+            owl:someValuesFrom :SoftwareState ] ;
     :definition "An event that captures the behavior, state, or interactions of software applications or services operating within a system. Application events encompass lifecycle changes, configuration updates, and operational anomalies, providing insight into the health and performance of software components." ;
     rdfs:seeAlso <https://schema.ocsf.io/1.3.0/classes/application_lifecycle> .
 
@@ -6182,6 +6190,11 @@ Wikipedia. (n.d.). Coefficient of variation. [Link](https://en.wikipedia.org/wik
     rdfs:label "Common Attack Pattern" ;
     rdfs:subClassOf :CAPECThing ;
     :definition "A common attack pattern that is in the CAPEC knowledge base." .
+
+:CommunicationState a owl:Class ;
+    rdfs:label "Communication State" ;
+    rdfs:subClassOf :State ;
+    :definition "A state that inheres in a communication channel, session, or protocol exchange, characterized by the values of its transmission, security, or negotiation properties at a temporal instant, including but not limited to encryption status, protocol phase, message sequence, and endpoint authentication." .
 
 :Compiler a owl:Class ;
     rdfs:label "Compiler" ;
@@ -17474,7 +17487,10 @@ Administrators collect information on hardware devices such as peripherals, NICs
 :HardwareDevice a owl:Class ;
     rdfs:label "Hardware Device" ;
     rdfs:subClassOf :DigitalInformationBearer,
-        :PhysicalArtifact ;
+        :PhysicalArtifact,
+        [ a owl:Restriction ;
+            owl:onProperty :has-state ;
+            owl:someValuesFrom :HardwareState ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Computer_hardware> ;
     :definition "Hardware devices are the physical artifacts that constitute a network or computer system. Hardware devices are the physical parts or components of a computer, such as the monitor, keyboard, computer data storage, hard disk drive (HDD), graphic cards, sound cards, memory (RAM), motherboard, and so on, all of which are tangible physical objects. By contrast, software is instructions that can be stored and run by hardware. Hardware is directed by the software to execute any command or instruction. A combination of hardware and software forms a usable computing system." ;
     rdfs:seeAlso <https://schema.ocsf.io/objects/device_hw_info> .
@@ -17528,7 +17544,10 @@ Administrators collect information on hardware devices such as peripherals, NICs
 
 :HardwareDeviceStateEvent a owl:Class ;
     rdfs:label "Hardware Device State Event" ;
-    rdfs:subClassOf :HardwareDeviceEvent ;
+    rdfs:subClassOf :HardwareDeviceEvent,
+        [ a owl:Restriction ;
+            owl:onProperty :has-participant ;
+            owl:someValuesFrom :HardwareState ] ;
     :definition "An event involving a change to a device's state, such as connection, disconnection, modification, or operational state transitions (e.g., online or offline). Device state events provide visibility into device availability and operational conditions." .
 
 :HardwareDeviceUnbindEvent a owl:Class ;
@@ -17556,6 +17575,11 @@ Administrators collect information on hardware devices such as peripherals, NICs
             owl:someValuesFrom :HardwareDevice ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Device_driver> ;
     :definition "In computing, a device driver (commonly referred to simply as a driver) is a computer program that operates or controls a particular type of device that is attached to a computer. A driver provides a software interface to hardware devices, enabling operating systems and other computer programs to access hardware functions without needing to know precise details of the hardware being used. A driver communicates with the device through the computer bus or communications subsystem to which the hardware connects. When a calling program invokes a routine in the driver, the driver issues commands to the device. Once the device sends data back to the driver, the driver may invoke routines in the original calling program. Drivers are hardware dependent and operating-system-specific. They usually provide the interrupt handling required for any necessary asynchronous time-dependent hardware interface." .
+
+:HardwareState a owl:Class ;
+    rdfs:label "Hardware State" ;
+    rdfs:subClassOf :State ;
+    :definition "A state that inheres in a hardware artifact, characterized by the values of its physical, electrical, or firmware-level properties at a temporal instant, including but not limited to power conditions, configuration settings, connectivity status, and physical security indicators." .
 
 :HarmonicMean a owl:Class,
         owl:NamedIndividual ;
@@ -19467,7 +19491,10 @@ Takes independent variables (i.e. covariate, features, predictors, input variabl
 :Link a owl:Class ;
     rdfs:label "Link" ;
     rdfs:subClassOf :D3FENDCore,
-        :DigitalInformationBearer ;
+        :DigitalInformationBearer,
+        [ a owl:Restriction ;
+            owl:onProperty :has-state ;
+            owl:someValuesFrom :CommunicationState ] ;
     :definition "A link is a connection or association between two entities that facilitates communication, interaction, or data transfer." ;
     rdfs:seeAlso <https://dbpedia.org/resource/Link> .
 
@@ -21126,6 +21153,11 @@ Network Resource Access Control involves managing and regulating access to resou
         <http://dbpedia.org/resource/Session_(computer_science)>,
         <https://schema.ocsf.io/objects/network_connection_info> .
 
+:NetworkState a owl:Class ;
+    rdfs:label "Network State" ;
+    rdfs:subClassOf :State ;
+    :definition "A state that inheres in a network component or network connection, characterized by the values of its communication, routing, or connectivity properties at a temporal instant, including but not limited to protocol states, connection status, traffic characteristics, and network topology position." .
+
 :NetworkTimeServer a owl:Class ;
     rdfs:label "Network Time Server" ;
     rdfs:subClassOf :Server ;
@@ -21881,6 +21913,11 @@ Key steps in operational process security monitoring are:
     rdfs:subClassOf :Modem ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Modem#Optical_modem> ;
     :definition "A modem that connects to a fiber optic network is known as an optical network terminal (ONT) or optical network unit (ONU). These are commonly used in fiber to the home installations, installed inside or outside a house to convert the optical medium to a copper Ethernet interface, after which a router or gateway is often installed to perform authentication, routing, NAT, and other typical consumer internet functions, in addition to \"triple play\" features such as telephony and television service." .
+
+:OrbitalState a owl:Class ;
+    rdfs:label "Orbital State" ;
+    rdfs:subClassOf :SpacecraftState ;
+    :definition "A time-indexed set of parameters—specifically State Vectors (position and velocity) or Keplerian Elements that describes the path of a satellite as it is governed by the gravitational influence of a primary body." .
 
 :OrchestrationController a owl:Class ;
     rdfs:label "Orchestration Controller" ;
@@ -27251,7 +27288,10 @@ The organization collects and models architectural information about the service
 
 :Session a owl:Class ;
     rdfs:label "Session" ;
-    rdfs:subClassOf :DigitalInformationBearer ;
+    rdfs:subClassOf :DigitalInformationBearer,
+        [ a owl:Restriction ;
+            owl:onProperty :has-state ;
+            owl:someValuesFrom :CommunicationState ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Session_(computer_science)> ;
     :definition "In computer science, in particular networking, a session is a semi-permanent interactive information interchange, also known as a dialogue, a conversation or a meeting, between two or more communicating devices, or between a computer and user (see Login session). A session is set up or established at a certain point in time, and then torn down at some later point. An established communication session may involve more than one message in each direction. A session is typically, but not always, stateful, meaning that at least one of the communicating parts needs to save information about the session history in order to be able to communicate, as opposed to stateless communication, where the communication consists of independent requests with responses." ;
     rdfs:seeAlso <https://schema.ocsf.io/objects/session> .
@@ -27527,6 +27567,9 @@ Wikipedia. (n.d.). Skewness. [Link](https://en.wikipedia.org/wiki/Skewness)""" .
             owl:onProperty :contains ;
             owl:someValuesFrom :ExecutableFile ],
         [ a owl:Restriction ;
+            owl:onProperty :has-state ;
+            owl:someValuesFrom :SoftwareState ],
+        [ a owl:Restriction ;
             owl:onProperty :implements ;
             owl:someValuesFrom :Subroutine ],
         [ a owl:Restriction ;
@@ -27632,6 +27675,12 @@ Application-layer discovery:
     rdfs:isDefinedBy <http://dbpedia.org/resource/Software_repository> ;
     :definition "A software repository, or repo for short, is a storage location for software packages. Often a table of contents is also stored, along with metadata. A software repository is typically managed by source or version control, or repository managers. Package managers allow automatically installing and updating repositories, sometimes called 'packages'." .
 
+:SoftwareState a owl:Class ;
+    rdfs:label "Software State" ;
+    rdfs:subClassOf :State ;
+    :definition "A state that inheres in a software artifact, characterized by the values of its computational, configurational, or operational properties at a temporal instant, including but not limited to execution status, configuration parameters, patch levels, permissions, and runtime conditions." ;
+    rdfs:seeAlso <http://dbpedia.org/resource/State_(computer_science)#Program_state> .
+
 :SoftwareUpdate a owl:Class,
         owl:NamedIndividual,
         :SoftwareUpdate ;
@@ -27683,6 +27732,11 @@ The goal is for homophones to be encoded to the same representation so that they
     rdfs:label "Source Code Reference" ;
     rdfs:subClassOf :TechniqueReference ;
     :pref-label "Source Code" .
+
+:SpacecraftState a owl:Class ;
+    rdfs:label "Spacecraft State" ;
+    rdfs:subClassOf :State ;
+    :definition "A state that inheres in a spacecraft, characterized by the values of its orbital, communication, or operational properties at a temporal instant, including but not limited to position and velocity vectors, attitude orientation, subsystem functionality, and ground link status." .
 
 :SPARTADefenseEvasionTechnique a owl:Class ;
     rdfs:label "Defense Evasion Technique - SPARTA" ;
@@ -28071,6 +28125,12 @@ Wikipedia. (n.d.). Standard deviation. [Link](https://en.wikipedia.org/wiki/Stan
         :LocalResource ;
     :definition "A startup directory is a directory containing executable files or links to executable files which are run when a user logs in or when a system component or service is started." .
 
+:State a owl:Class ;
+    rdfs:label "State" ;
+    rdfs:subClassOf :Event ;
+    :definition "A State is a stasis that inheres in an artifact at a temporal instant, characterized by the specific values of its configuration parameters, operational conditions, access permissions, data content, or security-relevant properties at that instant." ;
+    rdfs:seeAlso <https://www.commoncoreontologies.org/ont00000819> .
+
 :StaticAnalysisTool a owl:Class ;
     rdfs:label "Static Analysis Tool" ;
     skos:altLabel "Static Program Analysis Tool" ;
@@ -28110,6 +28170,9 @@ Wolfram MathWorld. (n.d.). Statistics. [Link](https://mathworld.wolfram.com/Stat
     rdfs:label "Storage" ;
     rdfs:subClassOf :DigitalInformationBearer,
         [ a owl:Restriction ;
+            owl:onProperty :has-state ;
+            owl:someValuesFrom :StorageState ],
+        [ a owl:Restriction ;
             owl:onProperty :may-contain ;
             owl:someValuesFrom :FileSystem ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/Computer_data_storage> ;
@@ -28135,6 +28198,11 @@ Wolfram MathWorld. (n.d.). Statistics. [Link](https://mathworld.wolfram.com/Stat
     rdfs:label "Storage Snapshot" ;
     rdfs:subClassOf :ComputingSnapshot ;
     :definition "A storage snapshot is a copy of a storage medium or system environment at a point in time." .
+
+:StorageState a owl:Class ;
+    rdfs:label "Storage State" ;
+    rdfs:subClassOf :HardwareState ;
+    :definition "A state that inheres in a storage medium or storage system, characterized by the values of its capacity, organization, or access control properties at a temporal instant, including but not limited to available space, partition structure, access permissions, and data distribution." .
 
 :StoredProcedure a owl:Class ;
     rdfs:label "Stored Procedure" ;
@@ -38802,6 +38870,9 @@ URL analysis may trigger follow-on analytics such as **File Analysis**
             owl:onProperty :has-account ;
             owl:someValuesFrom :UserAccount ],
         [ a owl:Restriction ;
+            owl:onProperty :has-state ;
+            owl:someValuesFrom :UserState ],
+        [ a owl:Restriction ;
             owl:onProperty :restricted-by ;
             owl:someValuesFrom :AccessControlList ] ;
     rdfs:isDefinedBy <http://dbpedia.org/resource/User_(computing)> ;
@@ -39134,6 +39205,11 @@ Access is determined based on the attributes associated with subjects (requester
     rdfs:subClassOf :ExecutableScript,
         :UserLogonInitResource ;
     :definition "A user startup script file is a shortcut file that is executed when a user logs in and starts a session on the host.  These indicate applications the user wants started at login.  For Windows, these are typically found in the user's startup directory." .
+
+:UserState a owl:Class ;
+    rdfs:label "User State" ;
+    rdfs:subClassOf :State ;
+    :definition "A state that inheres in a user account, identity, or session, characterized by the values of its authentication, authorization, or activity properties at a temporal instant, including but not limited to login status, assigned privileges, session validity, and behavioral patterns." .
 
 :UserToUserMessage a owl:Class ;
     rdfs:label "User to User Message" ;
@@ -45610,4 +45686,4 @@ With keystroke dynamics the biometric template used to identify an individual is
 
 <wptmp:entity#Reference%20-%20DNS%20Whitelist%20(DNSWL)%20Email%20Authentication%20Method%20Extension> :kb-author "Alessandro Vesely" .
 
-### Serialized using the ttlser deterministic serializer v1.2.3
+### Serialized using the ttlser deterministic serializer v1.2.1
