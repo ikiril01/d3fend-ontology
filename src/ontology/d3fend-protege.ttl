@@ -26558,6 +26558,43 @@ Wikipedia. (n.d.). Range (statistics). [Link](https://en.wikipedia.org/wiki/Rang
 Wikipedia. (2021, September 7). Recurrent Neural Network. [Link](https://en.wikipedia.org/wiki/Recurrent_neural_network)""" ;
     :todo "Review: Which Definition" .
 
+:RedundancyEncoding a owl:Class,
+        owl:NamedIndividual,
+        :RedundancyEncoding ;
+    rdfs:label "Redundancy Encoding" ;
+    rdfs:subClassOf :MessageHardening,
+        [ a owl:Restriction ;
+            owl:onProperty :hardens ;
+            owl:someValuesFrom :DigitalMessage ],
+        [ a owl:Restriction ;
+            owl:onProperty :hardens ;
+            owl:someValuesFrom :File ],
+        [ a owl:Restriction ;
+            owl:onProperty :hardens ;
+            owl:someValuesFrom :FileContentBlockMetadata ],
+        [ a owl:Restriction ;
+            owl:onProperty :hardens ;
+            owl:someValuesFrom :MemoryBlock ],
+        [ a owl:Restriction ;
+            owl:onProperty :hardens ;
+            owl:someValuesFrom :NetworkPacket ] ;
+    :d3fend-id "D3-RENC" ;
+    :definition "The application of mathematically structured additional data to a digital artifact such that subsequent verification can detect (and in some variants reconstruct) modifications to the original content." ;
+    :kb-article """## How it works
+Redundancy Encoding is applied at the point an artifact is created, written, or transmitted, and operates by computing a deterministic function over the artifact's content and binding the resulting check data to the artifact itself. The choice of function determines the technique's properties: simple parity and checksums detect random single-bit or burst errors at low cost; cyclic redundancy codes (CRCs) detect a wider class of unintentional corruption; algebraic codes such as Hamming, BCH, and Reed-Solomon both detect and correct bounded numbers of errors or erasures; and cryptographic constructions such as HMAC and AEAD authentication tags additionally resist adversarial modification by binding the check to a secret key. The encoded artifact, consisting of the original content plus check data, or a transformed codeword containing both, is then stored or transmitted as a unit, and any consumer of the artifact recomputes the function and compares against the bound check data to determine integrity.
+
+Deployment spans every layer of the stack: ECC on DRAM, caches, and registers; parity on internal buses; CRCs in network frames and storage sectors; Reed-Solomon and LDPC in optical media, flash, and erasure-coded object stores; T10-PI on enterprise block devices; and cryptographic MACs on messages, files, and firmware images. Selection should be driven by the threat model: non-cryptographic codes are appropriate only against non-adversarial corruption (noise, decay, soft errors), while any artifact exposed to a chosen-message adversary requires a cryptographic code. Correction-capable codes additionally specify a bound (e.g., "corrects up to t symbol errors per codeword") that determines the availability guarantee provided alongside integrity.
+
+## Considerations
+* Non-cryptographic codes (parity, CRC, plain checksums) detect random errors but do not stop a motivated adversary who can recompute the check after modifying the artifact.
+* Correction capability and detection capability are distinct properties: a code that corrects t errors typically detects somewhat more, and exceeding either bound silently produces a miscorrection or undetected corruption rather than a clean failure.
+* Redundancy adds storage, bandwidth, and compute overhead proportional to the strength of the code; the tradeoff between overhead and protection should be matched to the artifact's value and exposure.
+* Verification is only meaningful if mismatches are surfaced and acted upon. Correctable-error telemetry from hardware (ECC counters, MCE logs, SMART data) is itself a valuable detection signal and rising rates can indicate fault-injection or Rowhammer-class attacks.
+* Encoding and verification must cover the same artifact boundary an adversary or fault could affect; a check that protects payload but not headers, or memory but not the bus between memory and CPU, leaves an exploitable gap.
+* Key management governs the security of cryptographic variants.
+""" ;
+    :kb-reference :Reference-ErrorDetectingAndCorrectingSystem-ATTCorp .
+
 :ReferenceNullification a owl:Class,
         owl:NamedIndividual ;
     rdfs:label "Reference Nullification" ;
@@ -43354,6 +43391,17 @@ In one embodiment, a response policy zone (RPZ) application generates an RPZ tha
     :kb-reference-of :Token-basedAuthentication ;
     :kb-reference-title "Identity Providers: What is Token Based Authentication" .
 
+:Reference-ErrorDetectingAndCorrectingSystem-ATTCorp a owl:NamedIndividual,
+        :PatentReference ;
+    rdfs:label "Reference - Error Detecting and Correcting System - AT&T Corp." ;
+    :has-link "https://patents.google.com/patent/US2552629A"^^xsd:anyURI ;
+    :kb-abstract "This invention relates to permutation code systems and in particular to an apparatus for and a method of detecting and correcting errors which impair the accuracy of the output information of such systems." ;
+    :kb-author "Richard W. Hamming, Bernard D. Holbrook" ;
+    :kb-mitre-analysis "This foundational patent contains 20 claims relating to apparatus and method for detecting and correcting errors in permutation code systems, exemplified in binary permutation codes." ;
+    :kb-organization "AT&T Corporation" ;
+    :kb-reference-of :RedundancyEncoding ;
+    :kb-reference-title "Error Detecting and Correcting System" .
+
 :Reference-ExecutionWithAT_MITRE a :ExternalKnowledgeBase,
         owl:NamedIndividual ;
     rdfs:label "Reference - CAR-2013-05-004: Execution with AT - MITRE" ;
@@ -46621,4 +46669,4 @@ With keystroke dynamics the biometric template used to identify an individual is
 
 <wptmp:entity#Reference%20-%20DNS%20Whitelist%20(DNSWL)%20Email%20Authentication%20Method%20Extension> :kb-author "Alessandro Vesely" .
 
-### Serialized using the ttlser deterministic serializer v1.2.1
+### Serialized using the ttlser deterministic serializer v1.2.3
