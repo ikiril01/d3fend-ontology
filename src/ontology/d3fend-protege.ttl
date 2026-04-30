@@ -26564,19 +26564,19 @@ Wikipedia. (2021, September 7). Recurrent Neural Network. [Link](https://en.wiki
     rdfs:label "Redundancy Encoding" ;
     rdfs:subClassOf :MessageHardening,
         [ a owl:Restriction ;
-            owl:onProperty :hardens ;
+            owl:onProperty :may-harden ;
             owl:someValuesFrom :DigitalMessage ],
         [ a owl:Restriction ;
-            owl:onProperty :hardens ;
+            owl:onProperty :may-harden ;
             owl:someValuesFrom :File ],
         [ a owl:Restriction ;
-            owl:onProperty :hardens ;
+            owl:onProperty :may-harden ;
             owl:someValuesFrom :FileContentBlockMetadata ],
         [ a owl:Restriction ;
-            owl:onProperty :hardens ;
+            owl:onProperty :may-harden ;
             owl:someValuesFrom :MemoryBlock ],
         [ a owl:Restriction ;
-            owl:onProperty :hardens ;
+            owl:onProperty :may-harden ;
             owl:someValuesFrom :NetworkPacket ] ;
     :d3fend-id "D3-RENC" ;
     :definition "The application of mathematically structured additional data to a digital artifact such that subsequent verification can detect (and in some variants reconstruct) modifications to the original content." ;
