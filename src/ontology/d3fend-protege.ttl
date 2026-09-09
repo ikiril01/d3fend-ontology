@@ -17990,7 +17990,7 @@ The DNS lookup can be blocked by either dropping the network traffic with an inl
     rdfs:subClassOf :DigitalSignalProcessingApplication,
         [ a owl:Restriction ;
             owl:onProperty :encodes ;
-            owl:someValuesFrom :Telecommand ],
+            owl:someValuesFrom :WirelessCommand ],
         [ a owl:Restriction ;
             owl:onProperty :produces ;
             owl:someValuesFrom :NetworkFrame ] ;
@@ -21729,7 +21729,7 @@ Symmetric encryption uses the same cryptographic key by both the sender and rece
             owl:someValuesFrom :SpacecraftTelemetry ],
         [ a owl:Restriction ;
             owl:onProperty :produces ;
-            owl:someValuesFrom :Telecommand ] ;
+            owl:someValuesFrom :WirelessCommand ] ;
     :definition "An application that produces telecommands and analyzes spacecraft telemetry to enable operators to control and monitor a spacecraft." ;
     rdfs:seeAlso <https://www.space-glossary.com/cms/glossary/22-glossary-m/65836-mission-control-software.html> ;
     :synonym "Ground Control Software",
